@@ -55,13 +55,19 @@ const translations = {
     contact_subtitle: "Aberto a oportunidades de estágio e colaborações em qualquer área de desenvolvimento de software.",
     nav_certs: "Certificações",
     certs_title: "Cursos & Certificações Recentes",
-    certs_subtitle: "Aprimoramento técnico contínuo em IA, Engenharia de Prompts e Testes de Software de alta qualidade.",
-    cert1_title: "IA Generativa, LLMs & Agentes",
-    cert1_desc: "Bootcamp Bradesco na DIO cobrindo Fundamentos de IA, Engenharia de Prompts, LLMs e aplicações com NotebookLM.",
-    cert2_title: "Testes Automatizados com Java e IA",
-    cert2_desc: "Bootcamp Bradesco na DIO cobrindo automação de testes unitários e de integração com Java e suporte de inteligência artificial.",
-    cert3_title: "Trilhas de Figma & GitHub",
-    cert3_desc: "Cursos de extensão universitária na UCB cobrindo versionamento profissional de código com Git/GitHub e design de interface UI/UX com Figma.",
+    certs_subtitle: "Aprimoramento técnico contínuo em IA, Engenharia de Prompts, UI Design e Testes de Software de alta qualidade.",
+    cert1_title: "IA Generativa (UCB)",
+    cert1_desc: "Trilha acadêmica na Universidade Católica de Brasília focada na aplicação prática de modelos fundacionais de IA, LLMs e orquestração de agentes autônomos.",
+    cert2_title: "UI Design (Design de Interface) (UCB)",
+    cert2_desc: "Trilha acadêmica estudando fundamentos de design visual, layouts fluidos, contraste, tipografia e acessibilidade (WCAG) para interfaces digitais modernas.",
+    cert3_title: "Figma Acadêmico (UCB)",
+    cert3_desc: "Criação de wireframes, componentização dinâmica com auto-layout, variáveis de design-system e desenvolvimento de protótipos navegáveis de alta fidelidade.",
+    cert4_title: "Git e GitHub Colaborativo (UCB)",
+    cert4_desc: "Práticas profissionais de versionamento utilizando Git/GitHub em equipe: branch management, Git Flow, Code Review via Pull Requests e CI/CD.",
+    cert5_title: "IA Generativa, LLMs & Agentes (DIO)",
+    cert5_desc: "Bootcamp extensivo Bradesco na DIO cobrindo engenharia de prompts avançada, fundamentos de LLMs e desenvolvimento de assistentes de IA.",
+    cert6_title: "Testes Automatizados com Java & JUnit (DIO)",
+    cert6_desc: "Automação rigorosa de testes unitários e de integração utilizando JUnit, Mockito sob TDD e suporte de inteligência artificial.",
     lang_btn: "EN",
   },
   en: {
@@ -118,13 +124,19 @@ const translations = {
     contact_subtitle: "Open to internship opportunities and collaborations in any software development field.",
     nav_certs: "Certifications",
     certs_title: "Recent Courses & Certifications",
-    certs_subtitle: "Continuous technical advancement in AI, Prompt Engineering, and high-quality Software Testing.",
-    cert1_title: "Generative AI, LLMs & Agents",
-    cert1_desc: "Bradesco Bootcamp at DIO covering AI Foundations, Prompt Engineering, Large Language Models, and NotebookLM applications.",
-    cert2_title: "Automated Testing with Java & AI",
-    cert2_desc: "Bradesco Bootcamp at DIO covering unit and integration test automation with Java supported by artificial intelligence.",
-    cert3_title: "Figma & GitHub Academic Tracks",
-    cert3_desc: "Academic extension courses at UCB covering professional code versioning with Git/GitHub and UI/UX interface design with Figma.",
+    certs_subtitle: "Continuous technical advancement in AI, Prompt Engineering, UI Design, and high-quality Software Testing.",
+    cert1_title: "Generative AI (UCB)",
+    cert1_desc: "Academic track at the Catholic University of Brasília focused on the practical application of foundational AI models, LLMs, and agent orchestration.",
+    cert2_title: "UI Design (User Interface) (UCB)",
+    cert2_desc: "Academic track studying visual design foundations, responsive layouts, contrast, typography, and web accessibility standards (WCAG) for modern interfaces.",
+    cert3_title: "Academic Figma & Prototyping (UCB)",
+    cert3_desc: "Creating wireframes, dynamic components with auto-layout, design system variables, and high-fidelity interactive user journey prototypes.",
+    cert4_title: "Collaborative Git/GitHub Development (UCB)",
+    cert4_desc: "Professional version control practices using Git/GitHub: branch management, Git Flow, team Code Reviews via Pull Requests, and CI/CD.",
+    cert5_title: "Generative AI, LLMs & Agents (DIO)",
+    cert5_desc: "Bradesco bootcamp at DIO covering advanced prompt engineering, LLM foundations, and AI-driven assistant development.",
+    cert6_title: "Automated Testing with Java & JUnit (DIO)",
+    cert6_desc: "Rigorous unit and integration test automation utilizing Java, JUnit, Mockito under TDD workflows, supported by artificial intelligence.",
     lang_btn: "PT",
   }
 };
@@ -148,28 +160,111 @@ function toggleLanguage() {
   document.getElementById('langBtn').textContent = translations[currentLang]['lang_btn'];
 }
 
-// Controle de Tema (Modo Escuro / Claro)
+// Controle de Tema (Modo Escuro / Claro com Ciclo Dia/Noite Automático)
 function toggleTheme() {
+  const html = document.documentElement;
   const body = document.body;
   const sunIcon = document.getElementById('sunIcon');
   const moonIcon = document.getElementById('moonIcon');
 
-  body.classList.toggle('light-theme');
-  document.documentElement.classList.toggle('dark');
+  const willBeLight = !body.classList.contains('light-theme');
+
+  if (willBeLight) {
+    body.classList.add('light-theme');
+    html.classList.add('light-theme');
+    html.classList.remove('dark');
+    if (sunIcon) sunIcon.classList.remove('hidden');
+    if (moonIcon) moonIcon.classList.add('hidden');
+    localStorage.setItem('theme', 'light');
+  } else {
+    body.classList.remove('light-theme');
+    html.classList.remove('light-theme');
+    html.classList.add('dark');
+    if (sunIcon) sunIcon.classList.add('hidden');
+    if (moonIcon) moonIcon.classList.remove('hidden');
+    localStorage.setItem('theme', 'dark');
+  }
 
   // Dispara evento global para sincronizar o motor de clima Canvas
-  const isLight = body.classList.contains('light-theme');
-  const event = new CustomEvent('themeChanged', { detail: { isLight } });
-  window.dispatchEvent(event);
+  window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight: willBeLight } }));
+  
+  // Sincroniza o tema com o iframe
+  syncIframeTheme();
+}
 
-  if (body.classList.contains('light-theme')) {
-    sunIcon.classList.remove('hidden');
-    moonIcon.classList.add('hidden');
-  } else {
-    sunIcon.classList.add('hidden');
-    moonIcon.classList.remove('hidden');
+// Sincroniza o tema do modal iframe com o da página principal
+function syncIframeTheme() {
+  const iframe = document.getElementById('cvIframe');
+  if (iframe && iframe.contentDocument) {
+    const isLight = document.body.classList.contains('light-theme');
+    const iframeBody = iframe.contentDocument.body;
+    const iframeHtml = iframe.contentDocument.documentElement;
+    if (iframeBody && iframeHtml) {
+      if (isLight) {
+        iframeBody.classList.add('light-theme');
+        iframeHtml.classList.add('light-theme');
+        iframeHtml.classList.remove('dark');
+      } else {
+        iframeBody.classList.remove('light-theme');
+        iframeHtml.classList.remove('light-theme');
+        iframeHtml.classList.add('dark');
+      }
+      // Dispara o evento de tema dentro do iframe para o canvas dele atualizar
+      iframe.contentWindow.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight } }));
+    }
   }
 }
+
+function initTheme() {
+  const html = document.documentElement;
+  const body = document.body;
+  
+  let savedTheme = localStorage.getItem('theme');
+  
+  // Se não houver preferência salva, determina pelo horário local do usuário
+  if (!savedTheme) {
+    const currentHour = new Date().getHours();
+    // Dia: das 6h às 18h
+    if (currentHour >= 6 && currentHour < 18) {
+      savedTheme = 'light';
+    } else {
+      savedTheme = 'dark';
+    }
+  }
+  
+  const isLight = savedTheme === 'light';
+  if (isLight) {
+    body.classList.add('light-theme');
+    html.classList.add('light-theme');
+    html.classList.remove('dark');
+  } else {
+    body.classList.remove('light-theme');
+    html.classList.remove('light-theme');
+    html.classList.add('dark');
+  }
+  
+  // Sincroniza os ícones do menu assim que o DOM carregar
+  document.addEventListener('DOMContentLoaded', () => {
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    if (isLight) {
+      if (sunIcon) sunIcon.classList.remove('hidden');
+      if (moonIcon) moonIcon.classList.add('hidden');
+    } else {
+      if (sunIcon) sunIcon.classList.add('hidden');
+      if (moonIcon) moonIcon.classList.remove('hidden');
+    }
+  });
+
+  // Notifica o Canvas sobre a mudança com um pequeno delay para garantir que ele já registrou os eventos
+  setTimeout(() => {
+    window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight } }));
+    syncIframeTheme();
+  }, 100);
+}
+
+// Executa imediatamente para evitar flash visual de tema incorreto
+initTheme();
 
 // Funções de Controle do Modal de Currículo
 function openCVPreview() {

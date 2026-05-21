@@ -49,7 +49,7 @@
   <!-- --------------------------------------------------
        NAVEGAÇÃO FLUTUANTE
   -------------------------------------------------- -->
-  <nav class="fixed top-0 w-full z-40 border-b border-white/5 backdrop-blur-md bg-black/10">
+  <nav class="fixed top-0 w-full z-40 border-b border-[var(--nav-border)] backdrop-blur-md bg-[var(--nav-bg)]">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
       <div class="font-display font-extrabold text-xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent cursor-pointer">
         GSB<span class="text-[var(--text-main)]">.dev</span>
@@ -65,12 +65,12 @@
         </div>
         
         <!-- Toggle Linguagem -->
-        <button id="langBtn" onclick="toggleLanguage()" class="px-3 py-1.5 text-xs font-mono font-bold tracking-wider rounded-lg glass-card text-[var(--text-muted)] hover:text-primary border border-white/5 transition-all">
+        <button id="langBtn" onclick="toggleLanguage()" class="px-3 py-1.5 text-xs font-mono font-bold tracking-wider rounded-lg glass-card text-[var(--text-muted)] hover:text-primary border border-[var(--card-border)] transition-all">
           EN
         </button>
-
+ 
         <!-- Toggle Tema (Sol/Lua) -->
-        <button id="themeBtn" onclick="toggleTheme()" class="p-2 rounded-lg glass-card border border-white/5 text-[var(--text-muted)] hover:text-primary transition-all">
+        <button id="themeBtn" onclick="toggleTheme()" class="p-2 rounded-lg glass-card border border-[var(--card-border)] text-[var(--text-muted)] hover:text-primary transition-all">
           <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
           <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
         </button>
@@ -92,7 +92,7 @@
       <div class="flex-1 flex flex-col gap-6 text-center md:text-left">
         
         <!-- Badge Status -->
-        <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-300 text-xs font-mono w-fit mx-auto md:mx-0 backdrop-blur-sm shadow-[0_0_15px_rgba(0,242,254,0.05)]" data-i18n="hero_badge">
+        <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-cyan-500/20 dark:border-cyan-500/30 bg-cyan-500/5 dark:bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 text-xs font-mono w-fit mx-auto md:mx-0 backdrop-blur-sm shadow-[0_0_15px_rgba(0,242,254,0.05)]" data-i18n="hero_badge">
           🟢 Buscando Estágio em Desenvolvimento de Software
         </div>
         
@@ -148,20 +148,20 @@
 
       <!-- Bloco Perfil Rápido -->
       <div class="lg:col-span-5 flex flex-col gap-6">
-        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-cyan-400">
-          <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase mb-1" data-i18n="quick_univ">Universidade</span>
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-cyan-500 dark:border-l-cyan-400">
+          <span class="text-xs font-mono text-cyan-600 dark:text-cyan-400 tracking-widest uppercase mb-1" data-i18n="quick_univ">Universidade</span>
           <h4 class="font-display font-bold text-lg text-[var(--text-main)]">Univ. Católica de Brasília (UCB)</h4>
           <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_course">Engenharia de Software • Bacharelado</p>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-secondary">
-          <span class="text-xs font-mono text-secondary tracking-widest uppercase mb-1" data-i18n="quick_objective">Objetivo</span>
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-sky-500 dark:border-l-secondary">
+          <span class="text-xs font-mono text-sky-600 dark:text-secondary tracking-widest uppercase mb-1" data-i18n="quick_objective">Objetivo</span>
           <h4 class="font-display font-bold text-lg text-[var(--text-main)]" data-i18n="quick_objective_title">Estágio em Programação</h4>
           <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_objective_desc">Disponibilidade imediata para Front-End, Back-End, DevOps ou Sistemas.</p>
         </div>
 
-        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-accent">
-          <span class="text-xs font-mono text-accent tracking-widest uppercase mb-1" data-i18n="quick_location">Localização</span>
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-purple-500 dark:border-l-accent">
+          <span class="text-xs font-mono text-purple-600 dark:text-accent tracking-widest uppercase mb-1" data-i18n="quick_location">Localização</span>
           <h4 class="font-display font-bold text-lg text-[var(--text-main)]">Brasília - DF, Brasil</h4>
           <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_location_desc">Oportunidades presenciais, híbridas ou remotas.</p>
         </div>
@@ -181,99 +181,99 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         <!-- CARD 1: Back-End (Span 2) -->
-        <div class="lg:col-span-2 glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-orange-400/30">
+        <div class="lg:col-span-2 glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-orange-500/30 dark:border-b-orange-400/20">
           <div class="absolute -right-16 -top-16 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
           <div class="flex flex-col h-full justify-between gap-6">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-6">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
               </div>
               <h3 class="text-2xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_backend_title">Desenvolvimento Back-End</h3>
               <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_backend_desc">Construção de APIs escaláveis, arquitetura em camadas e integração resiliente com bancos de dados relacionais.</p>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Java</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Spring Boot</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">PostgreSQL</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">APIs RESTful</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Hibernate</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Java</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Spring Boot</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">PostgreSQL</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">APIs RESTful</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Hibernate</span>
             </div>
           </div>
         </div>
 
         <!-- CARD 2: Front-End -->
-        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-cyan-400/30">
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-cyan-500/30 dark:border-b-cyan-400/20">
           <div class="absolute -right-16 -top-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
           <div class="flex flex-col h-full justify-between gap-6">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-6">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
               </div>
               <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_frontend_title">Desenvolvimento Front-End</h3>
               <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_frontend_desc">Criação de interfaces web pixel-perfect, design responsivo e gerenciamento de estado de alto desempenho.</p>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">React</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Tailwind CSS</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">JavaScript</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">React</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Tailwind CSS</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">JavaScript</span>
             </div>
           </div>
         </div>
 
         <!-- CARD 3: Systems & Low Level -->
-        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-purple-400/30">
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-purple-500/30 dark:border-b-purple-400/20">
           <div class="absolute -right-16 -top-16 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
           <div class="flex flex-col h-full justify-between gap-6">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 9.172V5L8 4z"></path></svg>
               </div>
               <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_systems_title">Sistemas & Baixo Nível</h3>
               <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_systems_desc">Otimização de algoritmos complexos, estruturas de dados e controle estrito de memória física com C++.</p>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">C / C++</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Ponteiros</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Estrutura de Dados</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">C / C++</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Ponteiros</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Estrutura de Dados</span>
             </div>
           </div>
         </div>
 
         <!-- CARD 4: DevOps & Containers -->
-        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-green-400/30">
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-green-500/30 dark:border-b-green-400/20">
           <div class="absolute -right-16 -top-16 w-32 h-32 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
           <div class="flex flex-col h-full justify-between gap-6">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-green-500/10 text-green-400 flex items-center justify-center mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-green-500/10 text-green-600 dark:text-green-400 flex items-center justify-center mb-6">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
               </div>
               <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_devops_title">DevOps & Containers</h3>
               <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_devops_desc">Conteinerização total de ecossistemas locais, automação de setups e orquestração ágil com Docker.</p>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker Compose</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Git & GitHub</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker Compose</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Git & GitHub</span>
             </div>
           </div>
         </div>
 
         <!-- CARD 5: AI & Automations -->
-        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-yellow-400/30">
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-yellow-500/30 dark:border-b-yellow-400/20">
           <div class="absolute -right-16 -top-16 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl group-hover:bg-yellow-500/20 transition-all"></div>
           <div class="flex flex-col h-full justify-between gap-6">
             <div>
-              <div class="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-6">
+              <div class="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 flex items-center justify-center mb-6">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 9.172V5L8 4z"></path></svg>
               </div>
               <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_ai_title">Integração de IA</h3>
               <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_ai_desc">Implementação de assistentes de voz inteligentes, Speech APIs e automações orientadas a inteligência artificial.</p>
             </div>
             <div class="flex flex-wrap gap-2 mt-4">
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Web Speech API</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">AI Integration</span>
-              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">Web Speech API</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">AI Integration</span>
+              <span class="px-2.5 py-1 bg-[var(--card-inner-bg)] border border-[var(--card-border)] rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
             </div>
           </div>
         </div>
@@ -293,54 +293,105 @@
       <!-- Grid de Certificados -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Certificado 1: IA Generativa -->
-        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-cyan-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+        <!-- Certificado 1: IA Generativa UCB -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-cyan-500/40 dark:border-b-cyan-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
           <div class="absolute -right-12 -top-12 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl group-hover:bg-cyan-500/20 transition-all"></div>
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">GenAI</span>
-              <span class="text-xs text-[var(--text-muted)] font-medium">Maio 2026</span>
+              <span class="text-[10px] font-mono text-cyan-700 dark:text-cyan-400 font-bold bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">GenAI</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Abril 2026</span>
             </div>
-            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert1_title">IA Generativa, LLMs & Agentes</h3>
-            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert1_desc">Bootcamp Bradesco na DIO cobrindo Fundamentos de IA, Engenharia de Prompts, LLMs e aplicações com NotebookLM.</p>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert1_title">IA Generativa (UCB)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert1_desc">Trilha acadêmica na Universidade Católica de Brasília focada na aplicação prática de modelos fundacionais de IA, LLMs e orquestração de agentes autônomos.</p>
           </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-xs text-[var(--text-muted)]">
-            <span>DIO / Bradesco</span>
-            <span class="font-semibold text-cyan-400">Credencial DIO</span>
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
+            <span>Univ. Católica (UCB)</span>
+            <span class="font-semibold text-cyan-600 dark:text-cyan-400">30 Horas</span>
           </div>
         </div>
 
-        <!-- Certificado 2: QA & Testes Java -->
-        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-orange-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
-          <div class="absolute -right-12 -top-12 w-24 h-24 bg-orange-500/10 rounded-full blur-xl group-hover:bg-orange-500/20 transition-all"></div>
+        <!-- Certificado 2: UI Design UCB -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-pink-500/40 dark:border-b-pink-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+          <div class="absolute -right-12 -top-12 w-24 h-24 bg-pink-500/10 rounded-full blur-xl group-hover:bg-pink-500/20 transition-all"></div>
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono text-orange-400 font-bold bg-orange-500/10 border border-orange-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Java & QA</span>
-              <span class="text-xs text-[var(--text-muted)] font-medium">Nov 2025</span>
+              <span class="text-[10px] font-mono text-pink-700 dark:text-pink-400 font-bold bg-pink-500/10 border border-pink-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">UI Design</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Abril 2026</span>
             </div>
-            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert2_title">Testes Automatizados com Java e IA</h3>
-            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert2_desc">Bootcamp Bradesco na DIO cobrindo automação de testes unitários e de integração com Java e suporte de inteligência artificial.</p>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert2_title">UI Design (Design de Interface) (UCB)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert2_desc">Trilha acadêmica estudando fundamentos de design visual, layouts fluidos, contraste, tipografia e acessibilidade (WCAG) para interfaces digitais modernas.</p>
           </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-xs text-[var(--text-muted)]">
-            <span>DIO / Bradesco</span>
-            <span class="font-semibold text-orange-400">Credencial DIO</span>
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
+            <span>Univ. Católica (UCB)</span>
+            <span class="font-semibold text-pink-600 dark:text-pink-400">30 Horas</span>
           </div>
         </div>
 
-        <!-- Certificado 3: UCB Extensões -->
-        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-purple-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+        <!-- Certificado 3: Figma UCB -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-purple-500/40 dark:border-b-purple-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
           <div class="absolute -right-12 -top-12 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all"></div>
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="text-[10px] font-mono text-purple-400 font-bold bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">GitHub & Figma</span>
-              <span class="text-xs text-[var(--text-muted)] font-medium">Ago 2025</span>
+              <span class="text-[10px] font-mono text-purple-700 dark:text-purple-400 font-bold bg-purple-500/10 border border-purple-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Figma</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Set 2025</span>
             </div>
-            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert3_title">Trilhas de Figma & GitHub</h3>
-            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert3_desc">Cursos de extensão universitária na UCB cobrindo versionamento profissional de código com Git/GitHub e design de interface UI/UX com Figma.</p>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert3_title">Figma Acadêmico (UCB)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert3_desc">Criação de wireframes, componentização dinâmica com auto-layout, variáveis de design-system e desenvolvimento de protótipos navegáveis de alta fidelidade.</p>
           </div>
-          <div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-xs text-[var(--text-muted)]">
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
             <span>Univ. Católica (UCB)</span>
-            <span class="font-semibold text-purple-400">60 Horas Totais</span>
+            <span class="font-semibold text-purple-600 dark:text-purple-400">30 Horas</span>
+          </div>
+        </div>
+
+        <!-- Certificado 4: Git/GitHub UCB -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-green-500/40 dark:border-b-green-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+          <div class="absolute -right-12 -top-12 w-24 h-24 bg-green-500/10 rounded-full blur-xl group-hover:bg-green-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono text-green-700 dark:text-green-400 font-bold bg-green-500/10 border border-green-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Git & GitHub</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Julho 2025</span>
+            </div>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert4_title">Git e GitHub Colaborativo (UCB)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert4_desc">Práticas profissionais de versionamento utilizando Git/GitHub em equipe: branch management, Git Flow, Code Review via Pull Requests e CI/CD.</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
+            <span>Univ. Católica (UCB)</span>
+            <span class="font-semibold text-green-600 dark:text-green-400">30 Horas</span>
+          </div>
+        </div>
+
+        <!-- Certificado 5: IA Generativa DIO -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-orange-500/40 dark:border-b-orange-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+          <div class="absolute -right-12 -top-12 w-24 h-24 bg-orange-500/10 rounded-full blur-xl group-hover:bg-orange-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono text-orange-700 dark:text-orange-400 font-bold bg-orange-500/10 border border-orange-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">GenAI & Prompts</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Maio 2026</span>
+            </div>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert5_title">IA Generativa, LLMs & Agentes (DIO)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert5_desc">Bootcamp extensivo Bradesco na DIO cobrindo engenharia de prompts avançada, fundamentos de LLMs e desenvolvimento de assistentes de IA.</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
+            <span>DIO / Bradesco</span>
+            <span class="font-semibold text-orange-600 dark:text-orange-400">Credencial DIO</span>
+          </div>
+        </div>
+
+        <!-- Certificado 6: Testes Java DIO -->
+        <div class="glass-card p-6 rounded-2xl relative overflow-hidden group border-b-2 border-b-indigo-500/40 dark:border-b-indigo-400/30 flex flex-col justify-between h-full hover:-translate-y-1.5 transition-all duration-300">
+          <div class="absolute -right-12 -top-12 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl group-hover:bg-indigo-500/20 transition-all"></div>
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-mono text-indigo-700 dark:text-indigo-400 font-bold bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full uppercase tracking-wider">Java & QA</span>
+              <span class="text-xs text-[var(--text-muted)] font-medium">Nov 2025</span>
+            </div>
+            <h3 class="font-display font-bold text-lg text-[var(--text-main)] mb-2" data-i18n="cert6_title">Testes Automatizados com Java & JUnit (DIO)</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed" data-i18n="cert6_desc">Automação rigorosa de testes unitários e de integração utilizando JUnit, Mockito sob TDD e suporte de inteligência artificial.</p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-[var(--card-border)] flex justify-between items-center text-xs text-[var(--text-muted)]">
+            <span>DIO / Bradesco</span>
+            <span class="font-semibold text-indigo-600 dark:text-indigo-400">Credencial DIO</span>
           </div>
         </div>
 
@@ -356,14 +407,14 @@
       </div>
 
       <!-- PROJETO 1: J.A.R.V.I.S -->
-      <div class="glass-card p-1 rounded-3xl overflow-hidden">
-        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+      <div class="glass-card p-1 rounded-3xl overflow-hidden border-b-2 border-b-cyan-500/40">
+        <div class="bg-[var(--card-inner-bg)] rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-cyan-600/20 transition-colors duration-700"></div>
 
           <div class="relative z-10 flex flex-col lg:flex-row gap-10 items-center">
             <div class="flex-1 space-y-6">
               <div class="flex items-center gap-3">
-                <div class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded-full border border-cyan-500/30 uppercase tracking-wide" data-i18n="project1_badge">
+                <div class="px-3 py-1 bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 text-xs font-bold rounded-full border border-cyan-200 dark:border-cyan-500/30 uppercase tracking-wide" data-i18n="project1_badge">
                   TypeScript + AI
                 </div>
               </div>
@@ -380,8 +431,8 @@
               </ul>
 
               <div class="pt-2">
-                <a href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" class="inline-flex items-center gap-3 text-cyan-400 font-bold hover:text-white transition-all group/link">
-                  <span class="border-b border-cyan-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                <a href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" class="inline-flex items-center gap-3 text-cyan-600 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-white font-bold transition-all group/link font-sans">
+                  <span class="border-b border-cyan-500/50 pb-0.5 group-hover/link:border-cyan-600 dark:group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
                   <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
               </div>
@@ -389,8 +440,8 @@
 
             <!-- Editor de Código Simulado -->
             <div class="w-full lg:w-[45%]">
-              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
-                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+              <div class="rounded-xl code-editor shadow-2xl overflow-hidden">
+                <div class="flex items-center px-4 py-3 code-editor-header">
                   <div class="flex gap-1.5 mr-4">
                     <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -398,13 +449,13 @@
                   </div>
                   <span class="text-xs text-gray-500 font-mono">assistant.ts</span>
                 </div>
-                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-cyan-400">const</span> recognizer = <span class="text-purple-400">new</span> <span class="text-yellow-400">webkitSpeechRecognition</span>();</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span>recognizer.continuous = <span class="text-orange-400">true</span>;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span>recognizer.onresult = (<span class="text-orange-300">event</span>) => {</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="text-cyan-400">const</span> cmd = event.results[idx][0].transcript;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-4">executeVoiceAction(cmd);</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>};</span></div>
+                <div class="p-5 font-mono text-xs overflow-x-auto leading-relaxed">
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">1</span><span><span class="code-keyword">const</span> recognizer = <span class="code-keyword">new</span> <span class="code-type">webkitSpeechRecognition</span>();</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">2</span><span>recognizer.continuous = <span class="code-number">true</span>;</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">3</span><span>recognizer.onresult = (<span class="code-var">event</span>) => {</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="code-keyword">const</span> cmd = event.results[idx][0].transcript;</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">5</span><span class="pl-4">executeVoiceAction(cmd);</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">6</span><span>};</span></div>
                 </div>
               </div>
             </div>
@@ -413,14 +464,14 @@
       </div>
 
       <!-- PROJETO 2: java-course-platform -->
-      <div class="glass-card p-1 rounded-3xl overflow-hidden">
-        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+      <div class="glass-card p-1 rounded-3xl overflow-hidden border-b-2 border-b-orange-500/40">
+        <div class="bg-[var(--card-inner-bg)] rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-orange-600/20 transition-colors duration-700"></div>
 
           <div class="relative z-10 flex flex-col lg:flex-row-reverse gap-10 items-center">
             <div class="flex-1 space-y-6">
               <div class="flex items-center gap-3">
-                <div class="px-3 py-1 bg-orange-500/20 text-orange-300 text-xs font-bold rounded-full border border-orange-500/30 uppercase tracking-wide" data-i18n="project2_badge">
+                <div class="px-3 py-1 bg-orange-500/10 dark:bg-orange-500/20 text-orange-700 dark:text-orange-300 text-xs font-bold rounded-full border border-orange-200 dark:border-orange-500/30 uppercase tracking-wide" data-i18n="project2_badge">
                   Java + DevOps
                 </div>
               </div>
@@ -437,8 +488,8 @@
               </ul>
 
               <div class="pt-2">
-                <a href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" class="inline-flex items-center gap-3 text-orange-400 font-bold hover:text-white transition-all group/link">
-                  <span class="border-b border-orange-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                <a href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" class="inline-flex items-center gap-3 text-orange-600 hover:text-orange-800 dark:text-orange-400 dark:hover:text-white font-bold transition-all group/link font-sans">
+                  <span class="border-b border-orange-500/50 pb-0.5 group-hover/link:border-orange-600 dark:group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
                   <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
               </div>
@@ -446,8 +497,8 @@
 
             <!-- Editor de Código Simulado -->
             <div class="w-full lg:w-[45%]">
-              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
-                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+              <div class="rounded-xl code-editor shadow-2xl overflow-hidden">
+                <div class="flex items-center px-4 py-3 code-editor-header">
                   <div class="flex gap-1.5 mr-4">
                     <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -455,13 +506,13 @@
                   </div>
                   <span class="text-xs text-gray-500 font-mono">CourseController.java</span>
                 </div>
-                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-purple-400">@RestController</span></span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span><span class="text-purple-400">@RequestMapping</span>(<span class="text-green-400">"/api/courses"</span>)</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span><span class="text-purple-400">public class</span> <span class="text-yellow-400">CourseController</span> {</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="text-purple-400">@Autowired</span> CourseService svc;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-4"><span class="text-purple-400">@PostMapping</span> enroll();</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>}</span></div>
+                <div class="p-5 font-mono text-xs overflow-x-auto leading-relaxed">
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">1</span><span><span class="code-keyword">@RestController</span></span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">2</span><span><span class="code-keyword">@RequestMapping</span>(<span class="code-string">"/api/courses"</span>)</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">3</span><span><span class="code-keyword">public class</span> <span class="code-type">CourseController</span> {</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="code-keyword">@Autowired</span> CourseService svc;</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">5</span><span class="pl-4"><span class="code-keyword">@PostMapping</span> enroll();</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">6</span><span>}</span></div>
                 </div>
               </div>
             </div>
@@ -470,14 +521,14 @@
       </div>
 
       <!-- PROJETO 3: DEVBank -->
-      <div class="glass-card p-1 rounded-3xl overflow-hidden">
-        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+      <div class="glass-card p-1 rounded-3xl overflow-hidden border-b-2 border-b-indigo-500/40">
+        <div class="bg-[var(--card-inner-bg)] rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-indigo-600/20 transition-colors duration-700"></div>
 
           <div class="relative z-10 flex flex-col lg:flex-row gap-10 items-center">
             <div class="flex-1 space-y-6">
               <div class="flex items-center gap-3">
-                <div class="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-bold rounded-full border border-indigo-500/30 uppercase tracking-wide" data-i18n="project3_badge">
+                <div class="px-3 py-1 bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 text-xs font-bold rounded-full border border-indigo-200 dark:border-indigo-500/30 uppercase tracking-wide" data-i18n="project3_badge">
                   C++ + Algoritmos
                 </div>
               </div>
@@ -494,8 +545,8 @@
               </ul>
 
               <div class="pt-2">
-                <a href="https://github.com/guilhermebarcelos06/DEVBank" target="_blank" class="inline-flex items-center gap-3 text-indigo-400 font-bold hover:text-white transition-all group/link">
-                  <span class="border-b border-indigo-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                <a href="https://github.com/guilhermebarcelos06/DEVBank" target="_blank" class="inline-flex items-center gap-3 text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-white font-bold transition-all group/link font-sans">
+                  <span class="border-b border-indigo-500/50 pb-0.5 group-hover/link:border-indigo-600 dark:group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
                   <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
               </div>
@@ -503,8 +554,8 @@
 
             <!-- Editor de Código Simulado -->
             <div class="w-full lg:w-[45%]">
-              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
-                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+              <div class="rounded-xl code-editor shadow-2xl overflow-hidden">
+                <div class="flex items-center px-4 py-3 code-editor-header">
                   <div class="flex gap-1.5 mr-4">
                     <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -512,13 +563,13 @@
                   </div>
                   <span class="text-xs text-gray-500 font-mono">bank.cpp</span>
                 </div>
-                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-purple-400">#include</span> &lt;iostream&gt;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span><span class="text-purple-400">class</span> <span class="text-yellow-400">Conta</span> {</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span class="pl-4">public:</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-8"><span class="text-cyan-400">int</span> id;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-8"><span class="text-cyan-400">double</span> saldo;</span></div>
-                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>};</span></div>
+                <div class="p-5 font-mono text-xs overflow-x-auto leading-relaxed">
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">1</span><span><span class="code-keyword">#include</span> <span class="code-string">&lt;iostream&gt;</span></span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">2</span><span><span class="code-keyword">class</span> <span class="code-type">Conta</span> {</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">3</span><span class="pl-4"><span class="code-keyword">public</span>:</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">4</span><span class="pl-8"><span class="code-keyword">int</span> id;</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">5</span><span class="pl-8"><span class="code-keyword">double</span> saldo;</span></div>
+                  <div class="flex"><span class="text-gray-500 w-5 mr-3 select-none">6</span><span>};</span></div>
                 </div>
               </div>
             </div>
@@ -531,20 +582,20 @@
     <!-- --------------------------------------------------
          FOOTER & CONTATO
     -------------------------------------------------- -->
-    <footer id="contact" class="border-t border-white/5 pt-16">
+    <footer id="contact" class="border-t border-[var(--card-border)] pt-16">
       <div class="glass-card rounded-3xl p-8 md:p-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
         <div>
           <h2 class="text-3xl font-display font-extrabold text-[var(--text-main)] mb-2" data-i18n="contact_title">Vamos construir algo juntos?</h2>
           <p class="text-[var(--text-muted)] text-base" data-i18n="contact_subtitle">Aberto a oportunidades de estágio e colaborações em qualquer área de desenvolvimento de software.</p>
         </div>
         <div class="flex flex-col items-center md:items-end gap-3">
-          <a href="mailto:guilhermebarcelos2006@gmail.com" class="text-xl md:text-2xl text-cyan-400 hover:text-white font-extrabold transition-colors flex items-center gap-2">
+          <a href="mailto:guilhermebarcelos2006@gmail.com" class="text-xl md:text-2xl text-cyan-600 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-white font-extrabold transition-colors flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse"></span>
             guilhermebarcelos2006@gmail.com
           </a>
           <div class="flex gap-4 mt-2">
-            <a href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-400 transition-all text-sm font-medium">LinkedIn</a>
-            <a href="https://github.com/guilhermebarcelos06" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-400 transition-all text-sm font-medium">GitHub</a>
+            <a href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-600 dark:hover:text-cyan-400 transition-all text-sm font-medium">LinkedIn</a>
+            <a href="https://github.com/guilhermebarcelos06" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-600 dark:hover:text-cyan-400 transition-all text-sm font-medium">GitHub</a>
           </div>
         </div>
       </div>
@@ -560,10 +611,10 @@
   -------------------------------------------------- -->
   <div id="cvModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 opacity-0 pointer-events-none transition-all duration-500 bg-black/70 backdrop-blur-md">
     <!-- Container do Modal -->
-    <div class="relative w-full max-w-5xl h-[85vh] flex flex-col glass-card border border-white/10 rounded-3xl overflow-hidden shadow-2xl scale-95 transition-transform duration-500" style="background: var(--card-bg);">
+    <div class="relative w-full max-w-5xl h-[85vh] flex flex-col glass-card border border-[var(--card-border)] rounded-3xl overflow-hidden shadow-2xl scale-95 transition-transform duration-500" style="background: var(--card-bg);">
       
       <!-- Cabeçalho do Modal -->
-      <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/20">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-[var(--card-border)] bg-[var(--card-inner-bg)]">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></span>
           <h3 class="font-display font-bold text-lg text-[var(--text-main)]" data-i18n="modal_title">Visualização do Currículo Premium</h3>
@@ -577,15 +628,15 @@
           </button>
           
           <!-- Botão Fechar -->
-          <button onclick="closeCVPreview()" class="p-2 rounded-lg bg-white/5 border border-white/10 text-[var(--text-muted)] hover:text-white hover:bg-white/10 transition-all">
+          <button onclick="closeCVPreview()" class="p-2 rounded-lg bg-[var(--card-inner-bg)] border border-[var(--card-border)] text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--card-border)] transition-all">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
       </div>
       
       <!-- Corpo com Iframe do Currículo -->
-      <div class="flex-1 w-full bg-[#0a0f1e] overflow-hidden relative">
-        <iframe id="cvIframe" src="./curriculo_premium.html" class="w-full h-full border-none" style="background: transparent;"></iframe>
+      <div class="flex-1 w-full bg-slate-100 dark:bg-[#0a0f1e] overflow-hidden relative transition-colors duration-500">
+        <iframe id="cvIframe" src="./curriculo_premium.html" onload="syncIframeTheme()" class="w-full h-full border-none" style="background: transparent;"></iframe>
       </div>
     </div>
   </div>

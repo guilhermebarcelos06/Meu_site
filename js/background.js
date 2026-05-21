@@ -1,7 +1,7 @@
 /**
- * Liquid Glass Weather Engine - Canvas 2D
+ * Liquid Glass Weather & Landscape Engine - Canvas 2D
  * Desenvolvido para Guilherme Silvestre Barcelos
- * Integração de clima real via Open-Meteo API e física de partículas interativa
+ * Integração de clima real via Open-Meteo API, física de partículas e paisagem interativa
  */
 
 (function () {
@@ -20,6 +20,7 @@
   let isLightTheme = document.body.classList.contains('light-theme');
   let currentWeather = 'clear'; // 'clear', 'cloudy', 'rain'
   let weatherFetched = false;
+  let animTime = 0;
   
   // Coordenadas padrão (Brasília - BSB)
   let lat = -15.7801;
@@ -40,6 +41,7 @@
   let particles = [];
   let ripples = [];
   let clouds = [];
+  let birds = [];
   let lightningFlash = 0;
   let windForce = 0; // Vento dinâmico criado pelo mouse
 
@@ -67,6 +69,14 @@
     if (currentWeather === 'clear' && !isLightTheme) {
       generateStardust(mouse.x, mouse.y, Math.abs(mouse.vx) + Math.abs(mouse.vy));
     }
+
+    // Gerar ripples de brisa no lago com movimento do mouse
+    const horizonY = height * 0.7;
+    if (mouse.y >= horizonY && (Math.abs(mouse.vx) > 2 || Math.abs(mouse.vy) > 2)) {
+      if (Math.random() < 0.15 && ripples.length < 60) {
+        ripples.push(new Ripple(mouse.x, mouse.y));
+      }
+    }
   });
 
   window.addEventListener('mouseleave', () => {
@@ -90,14 +100,14 @@
 
     reset() {
       this.x = -200;
-      this.y = Math.random() * (height * 0.25) + 30;
+      this.y = Math.random() * (height * 0.22) + 20;
       this.size = Math.random() * 80 + 60;
       this.speed = Math.random() * 0.15 + 0.05;
       this.opacity = Math.random() * 0.15 + 0.05;
     }
 
     update() {
-      this.x += this.speed;
+      this.x += this.speed + windForce * 0.05;
       if (this.x - this.size * 2 > width) {
         this.reset();
       }
@@ -105,9 +115,8 @@
 
     draw() {
       ctx.save();
-      ctx.fillStyle = isLightTheme ? 'rgba(255, 255, 255, 0.45)' : 'rgba(255, 255, 255, 0.06)';
+      ctx.fillStyle = isLightTheme ? 'rgba(255, 255, 255, 0.45)' : 'rgba(255, 255, 255, 0.05)';
       ctx.beginPath();
-      // Desenha nuvem puff
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.arc(this.x + this.size * 0.6, this.y - this.size * 0.2, this.size * 0.8, 0, Math.PI * 2);
       ctx.arc(this.x - this.size * 0.6, this.y - this.size * 0.1, this.size * 0.7, 0, Math.PI * 2);
@@ -116,33 +125,82 @@
     }
   }
 
-  // Classe para Ondulações (Ripples) na Base para Chuva
+  // Classe Pássaros Voando no Tema Claro
+  class Bird {
+    constructor() {
+      this.reset();
+      this.x = Math.random() * width;
+    }
+
+    reset() {
+      this.x = -50;
+      this.y = Math.random() * (height * 0.35) + 40;
+      this.size = Math.random() * 8 + 6;
+      this.speedX = Math.random() * 1.2 + 0.8;
+      this.speedY = Math.random() * 0.4 - 0.2;
+      this.wingPhase = Math.random() * Math.PI * 2;
+      this.wingSpeed = Math.random() * 0.15 + 0.1;
+    }
+
+    update() {
+      this.x += this.speedX + windForce * 0.2;
+      this.y += this.speedY;
+      this.wingPhase += this.wingSpeed;
+
+      if (this.x - 50 > width) {
+        this.reset();
+      }
+    }
+
+    draw() {
+      ctx.save();
+      ctx.strokeStyle = isLightTheme ? 'rgba(71, 85, 105, 0.65)' : 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      
+      // Desenha pássaro estilo gaivota (V simples que bate asas)
+      const wingHeight = Math.sin(this.wingPhase) * this.size * 0.5;
+      
+      ctx.moveTo(this.x - this.size, this.y + wingHeight);
+      ctx.quadraticCurveTo(this.x - this.size * 0.3, this.y - this.size * 0.1, this.x, this.y);
+      ctx.quadraticCurveTo(this.x + this.size * 0.3, this.y - this.size * 0.1, this.x + this.size, this.y + wingHeight);
+      
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  // Classe para Ondulações (Ripples) no Lago
   class Ripple {
     constructor(x, y) {
       this.x = x;
       this.y = y;
       this.radius = 1;
-      this.maxRadius = Math.random() * 20 + 10;
-      this.opacity = 0.6;
-      this.speed = Math.random() * 0.8 + 0.4;
+      this.maxRadius = Math.random() * 18 + 8;
+      this.opacity = 0.65;
+      this.speed = Math.random() * 0.6 + 0.3;
     }
 
     update() {
       this.radius += this.speed;
-      this.opacity -= 0.015;
+      this.opacity -= 0.012;
     }
 
     draw() {
-      ctx.strokeStyle = isLightTheme ? `rgba(14, 165, 233, ${this.opacity})` : `rgba(0, 242, 254, ${this.opacity})`;
+      ctx.save();
+      ctx.strokeStyle = isLightTheme 
+        ? `rgba(14, 165, 233, ${this.opacity})` 
+        : `rgba(0, 242, 254, ${this.opacity})`;
       ctx.lineWidth = 1;
       ctx.beginPath();
-      // Desenha elipse simulando perspectiva
-      ctx.ellipse(this.x, this.y, this.radius, this.radius * 0.25, 0, 0, Math.PI * 2);
+      // Desenha elipse simulando perspectiva da água do lago
+      ctx.ellipse(this.x, this.y, this.radius, this.radius * 0.22, 0, 0, Math.PI * 2);
       ctx.stroke();
+      ctx.restore();
     }
   }
 
-  // Sistema de Partículas (Estrelas, Folhas, Chuva)
+  // Sistema de Partículas (Estrelas, Folhas, Chuva, Stardust)
   class Particle {
     constructor(type) {
       this.type = type;
@@ -162,7 +220,7 @@
 
       if (this.type === 'star') {
         this.x = Math.random() * width;
-        this.y = Math.random() * (height * 0.8);
+        this.y = Math.random() * (height * 0.7); // Ficam no céu
         this.size = Math.random() * 1.5 + 0.5;
         this.twinkleSpeed = Math.random() * 0.02 + 0.005;
         this.phase = Math.random() * Math.PI;
@@ -185,10 +243,14 @@
       else if (this.type === 'rain') {
         this.x = Math.random() * (width + 100) - 50;
         this.y = Math.random() * -100;
-        this.size = Math.random() * 2 + 1; // Espessura
-        this.length = Math.random() * 20 + 15; // Altura do traço
+        this.size = Math.random() * 1.5 + 0.8; // Espessura
+        this.length = Math.random() * 18 + 12; // Altura do traço
         this.speedY = Math.random() * 8 + 12; // Muito rápido
         this.speedX = -2; // Caindo na diagonal
+        
+        // Destino de impacto na água do lago (entre 70% e 100% da altura da tela)
+        const horizonY = height * 0.7;
+        this.impactY = horizonY + Math.random() * (height - horizonY);
       }
       else if (this.type === 'stardust') {
         this.x = 0;
@@ -260,9 +322,9 @@
           }
         }
 
-        // Ripple no chão (base da tela) ao bater
-        if (this.y >= height - 5 - Math.random() * 20) {
-          if (ripples.length < 50) {
+        // Ripple no lago ao bater
+        if (this.y >= this.impactY) {
+          if (ripples.length < 60) {
             ripples.push(new Ripple(this.x, this.y));
           }
           this.reset();
@@ -312,7 +374,7 @@
         ctx.fill();
         
         // Desenha cabinho da folha
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(-this.size, 0);
@@ -320,7 +382,7 @@
         ctx.stroke();
       } 
       else if (this.type === 'rain') {
-        ctx.strokeStyle = isLightTheme ? 'rgba(14, 165, 233, 0.35)' : 'rgba(0, 242, 254, 0.25)';
+        ctx.strokeStyle = isLightTheme ? 'rgba(14, 165, 233, 0.35)' : 'rgba(0, 242, 254, 0.22)';
         ctx.lineWidth = this.size;
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
@@ -353,6 +415,7 @@
     particles = [];
     ripples = [];
     clouds = [];
+    birds = [];
     
     // Define o tipo primário de partículas do clima
     let type = 'star';
@@ -370,6 +433,14 @@
       }
     }
 
+    // Inicializa pássaros no tema claro diurno sem chuva
+    if (isLightTheme && currentWeather !== 'rain') {
+      const birdCount = isMobile ? 2 : 4;
+      for (let i = 0; i < birdCount; i++) {
+        birds.push(new Bird());
+      }
+    }
+
     // Cria as partículas primárias
     const count = currentWeather === 'rain' ? maxParticles * 1.5 : maxParticles;
     for (let i = 0; i < count; i++) {
@@ -377,9 +448,38 @@
     }
   }
 
+  // Desenha o degradê de fundo do Céu com alta fidelidade no Canvas
+  function drawSkyBackground() {
+    const horizonY = height * 0.7;
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
+    
+    if (isLightTheme) {
+      if (currentWeather === 'rain' || currentWeather === 'cloudy') {
+        skyGrad.addColorStop(0, '#94a3b8');
+        skyGrad.addColorStop(1, '#cbd5e1');
+      } else {
+        skyGrad.addColorStop(0, '#bae6fd'); // Celeste lindo
+        skyGrad.addColorStop(0.6, '#e0f2fe');
+        skyGrad.addColorStop(1, '#ffedd5'); // Sutil pôr do sol dourado no horizonte
+      }
+    } else {
+      if (currentWeather === 'rain' || currentWeather === 'cloudy') {
+        skyGrad.addColorStop(0, '#040714');
+        skyGrad.addColorStop(1, '#0e172a');
+      } else {
+        skyGrad.addColorStop(0, '#040612'); // Azul marinho escuro estrelado
+        skyGrad.addColorStop(0.6, '#090d1e');
+        skyGrad.addColorStop(1, '#1b132e'); // Toque sutil roxo/violeta no horizonte
+      }
+    }
+    
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, width, horizonY);
+  }
+
   // Desenha Elementos Celestes Fixos
   function drawSkyDecorations() {
-    if (currentWeather === 'rain') return;
+    if (currentWeather === 'rain' && isLightTheme) return; // Oculta sob tempestade diurna
 
     ctx.save();
     if (isLightTheme) {
@@ -388,7 +488,7 @@
       const solY = 120;
       const gradient = ctx.createRadialGradient(solX, solY, 10, solX, solY, 90);
       gradient.addColorStop(0, 'rgba(253, 224, 71, 0.9)');
-      gradient.addColorStop(0.3, 'rgba(253, 224, 71, 0.5)');
+      gradient.addColorStop(0.3, 'rgba(253, 224, 71, 0.45)');
       gradient.addColorStop(1, 'rgba(253, 224, 71, 0)');
       
       ctx.fillStyle = gradient;
@@ -423,8 +523,107 @@
     ctx.restore();
   }
 
+  // Desenha montanhas de fundo com curvas Bézier (efeito profundidade paralaxe)
+  function drawMountains() {
+    ctx.save();
+    const horizonY = height * 0.7;
+
+    // Camada 1: Montanhas distantes (mais altas e claras)
+    ctx.fillStyle = isLightTheme 
+      ? 'rgba(186, 215, 233, 0.45)' 
+      : 'rgba(15, 23, 42, 0.45)';
+    ctx.beginPath();
+    ctx.moveTo(0, horizonY);
+    ctx.quadraticCurveTo(width * 0.25, horizonY - 140, width * 0.5, horizonY - 40);
+    ctx.quadraticCurveTo(width * 0.75, horizonY - 180, width, horizonY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Camada 2: Montanhas médias
+    ctx.fillStyle = isLightTheme 
+      ? 'rgba(156, 190, 212, 0.6)' 
+      : 'rgba(23, 37, 65, 0.6)';
+    ctx.beginPath();
+    ctx.moveTo(0, horizonY);
+    ctx.quadraticCurveTo(width * 0.3, horizonY - 80, width * 0.65, horizonY - 120);
+    ctx.quadraticCurveTo(width * 0.85, horizonY - 40, width, horizonY);
+    ctx.closePath();
+    ctx.fill();
+
+    // Camada 3: Colinas próximas no horizonte
+    ctx.fillStyle = isLightTheme 
+      ? 'rgba(125, 160, 185, 0.75)' 
+      : 'rgba(30, 41, 79, 0.75)';
+    ctx.beginPath();
+    ctx.moveTo(0, horizonY);
+    ctx.quadraticCurveTo(width * 0.15, horizonY - 40, width * 0.4, horizonY - 60);
+    ctx.quadraticCurveTo(width * 0.7, horizonY - 20, width, horizonY);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  // Desenha Lago e os Reflexos Dinâmicos da Lua/Sol com oscilações 3D a 60 FPS
+  function drawLake() {
+    const horizonY = height * 0.7;
+    ctx.save();
+
+    // 1. Desenhar a água do lago (gradiente base)
+    const lakeGrad = ctx.createLinearGradient(0, horizonY, 0, height);
+    if (isLightTheme) {
+      lakeGrad.addColorStop(0, 'rgba(182, 217, 237, 0.85)');
+      lakeGrad.addColorStop(1, 'rgba(128, 172, 203, 0.95)');
+    } else {
+      lakeGrad.addColorStop(0, 'rgba(9, 15, 33, 0.92)');
+      lakeGrad.addColorStop(1, 'rgba(2, 4, 10, 0.99)');
+    }
+    ctx.fillStyle = lakeGrad;
+    ctx.fillRect(0, horizonY, width, height - horizonY);
+
+    // 2. Desenhar o reflexo do astro na água (Sol ou Lua)
+    const solX = width * 0.85;
+    
+    // Fatias para efeito senoidal
+    const sliceCount = isMobile ? 30 : 60;
+    const sliceHeight = (height - horizonY) / sliceCount;
+    
+    ctx.globalCompositeOperation = 'screen'; // Efeito de brilho translúcido
+    
+    for (let i = 0; i < sliceCount; i++) {
+      const sliceY = horizonY + i * sliceHeight;
+      const progress = i / sliceCount; // 0 no horizonte, 1 na base
+      
+      // A amplitude de oscilação cresce sutilmente na base
+      const waveOffset = Math.sin(animTime * 0.04 + sliceY * 0.07) * (3.5 + progress * 5.5) * (1 + Math.abs(windForce) * 0.4);
+      
+      // Largura do reflexo
+      const baseWidth = isLightTheme ? 52 : 36;
+      const sliceWidth = baseWidth * (1.6 - progress * 0.75) * (1 + Math.sin(animTime * 0.08 + sliceY * 0.02) * 0.08);
+      const reflexX = solX + waveOffset;
+      
+      // Opacidade decai e oscila
+      const opacity = (isLightTheme ? 0.42 : 0.58) * (1.15 - progress * 0.85) * (0.8 + Math.sin(animTime * 0.05 + sliceY * 0.09) * 0.2);
+      
+      const reflexGrad = ctx.createRadialGradient(reflexX, sliceY + sliceHeight/2, 0, reflexX, sliceY + sliceHeight/2, sliceWidth);
+      if (isLightTheme) {
+        reflexGrad.addColorStop(0, `rgba(253, 224, 71, ${opacity})`);
+        reflexGrad.addColorStop(1, 'rgba(253, 224, 71, 0)');
+      } else {
+        reflexGrad.addColorStop(0, `rgba(0, 242, 254, ${opacity})`);
+        reflexGrad.addColorStop(1, 'rgba(0, 242, 254, 0)');
+      }
+      
+      ctx.fillStyle = reflexGrad;
+      ctx.fillRect(reflexX - sliceWidth, sliceY, sliceWidth * 2, sliceHeight);
+    }
+
+    ctx.restore();
+  }
+
   // Loop de Animação Principal (60 FPS)
   function animate() {
+    animTime++;
     ctx.clearRect(0, 0, width, height);
 
     // Relâmpagos em caso de tempestade escura
@@ -439,16 +638,31 @@
       }
     }
 
-    // Desenha sol ou lua
+    // 1. Desenha Céu e Astros
+    drawSkyBackground();
     drawSkyDecorations();
 
-    // Desenha nuvens de fundo
+    // 2. Desenha nuvens de fundo
     clouds.forEach(c => {
       c.update();
       c.draw();
     });
 
-    // Atualiza e desenha partículas
+    // 3. Desenha Pássaros no tema claro diurno
+    if (isLightTheme && currentWeather !== 'rain') {
+      birds.forEach(b => {
+        b.update();
+        b.draw();
+      });
+    }
+
+    // 4. Desenha as Montanhas no Horizonte
+    drawMountains();
+
+    // 5. Desenha o Lago e seus Reflexos
+    drawLake();
+
+    // 6. Atualiza e desenha partículas
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
       const alive = p.update();
@@ -459,7 +673,7 @@
       p.draw();
     }
 
-    // Mantém quantidade constante de partículas se não forem temporárias
+    // Mantém quantidade constante de partículas primárias se não forem temporárias
     let targetCount = currentWeather === 'rain' ? maxParticles * 1.5 : maxParticles;
     let currentPrimary = particles.filter(p => p.type !== 'stardust').length;
     
@@ -470,7 +684,7 @@
       particles.push(new Particle(type));
     }
 
-    // Atualiza e desenha ripples
+    // 7. Atualiza e desenha ripples (ondulações) na superfície da água do lago
     for (let i = ripples.length - 1; i >= 0; i--) {
       const r = ripples[i];
       r.update();
@@ -484,7 +698,7 @@
     requestAnimationFrame(animate);
   }
 
-  // Conectar à API Open-Meteo
+  // Conectar à API Open-Meteo para Clima em Tempo Real
   async function fetchWeather() {
     try {
       // Geolocalização do Usuário
@@ -539,14 +753,13 @@
     } finally {
       initElements();
       if (!weatherFetched) {
-        // Fallback rápido se falhar totalmente
         currentWeather = 'clear';
         initElements();
       }
     }
   }
 
-  // Inicia carregando clima e dando partida no loop
+  // Inicia carregando clima e dando partida no loop principal
   fetchWeather();
   animate();
 })();

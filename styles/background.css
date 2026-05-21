@@ -1,0 +1,15 @@
+/* --------------------------------------------------
+   BACKGROUND CANVAS STYLING & ACCELERATION
+-------------------------------------------------- */
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+  pointer-events: none;
+  display: block;
+  transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+}

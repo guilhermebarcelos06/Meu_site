@@ -238,8 +238,8 @@
       this.x += this.speed;
       this.legPhase += this.legSpeed;
 
-      // Retorna para o início ao sair da zona da colina esquerda
-      if (this.x > width * 0.22) {
+      // Retorna para o início ao sair da zona da colina esquerda (mantendo-as no canto)
+      if (this.x > width * 0.16) {
         this.reset();
       }
     }
@@ -595,32 +595,38 @@
       const luaY = 120;
       const radius = 24;
       
-      // 1. Brilho externo da lua (Halo de Névoa Cósmica)
-      const glowGrad = ctx.createRadialGradient(luaX, luaY, 0, luaX, luaY, 55);
-      glowGrad.addColorStop(0, 'rgba(186, 230, 253, 0.35)'); // Azul-celeste suave
-      glowGrad.addColorStop(0.3, 'rgba(56, 189, 248, 0.15)');
+      // 1. Brilho externo da lua (Halo de Névoa Cósmica expandido e suave)
+      const glowGrad = ctx.createRadialGradient(luaX, luaY, 0, luaX, luaY, 65);
+      glowGrad.addColorStop(0, 'rgba(186, 230, 253, 0.42)'); // Azul-celeste suave
+      glowGrad.addColorStop(0.35, 'rgba(56, 189, 248, 0.18)');
       glowGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
       ctx.fillStyle = glowGrad;
       ctx.beginPath();
-      ctx.arc(luaX, luaY, 55, 0, Math.PI * 2);
+      ctx.arc(luaX, luaY, 65, 0, Math.PI * 2);
       ctx.fill();
  
       // 2. Brilho da Luz Cinérea (a face da lua fracamente iluminada)
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
       ctx.beginPath();
       ctx.arc(luaX, luaY, radius, 0, Math.PI * 2);
       ctx.fill();
 
-      // 3. Crescente de Alta Fidelidade
-      ctx.fillStyle = '#f8fafc';
-      ctx.shadowColor = 'rgba(186, 230, 253, 0.85)';
-      ctx.shadowBlur = 15;
+      // 3. Crescente de Alta Fidelidade (Curvatura Ajustada Elegante com Degradê)
       ctx.beginPath();
       // Desenha arco externo de -90 a 90 graus
       ctx.arc(luaX, luaY, radius, -Math.PI * 0.5, Math.PI * 0.5, false);
-      // Desenha curva interna que esculpe o recorte crescente perfeito
-      ctx.quadraticCurveTo(luaX + radius * 0.08, luaY, luaX, luaY - radius);
+      // Desenha curva interna com recorte 0.62 para crescentes finos e afiados
+      ctx.quadraticCurveTo(luaX + radius * 0.62, luaY, luaX, luaY - radius);
       ctx.closePath();
+
+      const moonGrad = ctx.createLinearGradient(luaX, luaY - radius, luaX, luaY + radius);
+      moonGrad.addColorStop(0, '#ffffff');
+      moonGrad.addColorStop(0.5, '#fef08a'); // Tom quente dourado lunar sutil
+      moonGrad.addColorStop(1, '#e2e8f0'); // Prata
+      ctx.fillStyle = moonGrad;
+
+      ctx.shadowColor = 'rgba(254, 240, 138, 0.75)';
+      ctx.shadowBlur = 18;
       ctx.fill();
     }
     ctx.restore();
@@ -711,17 +717,38 @@
     ctx.fillStyle = lakeGrad;
     ctx.fillRect(0, horizonY, width, height - horizonY);
 
-    // 2. Ondas horizontais suaves de relevo para ajustar o lago
-    ctx.strokeStyle = isLightTheme ? 'rgba(255, 255, 255, 0.22)' : 'rgba(255, 255, 255, 0.025)';
-    ctx.lineWidth = 1;
-    const waveCount = isMobile ? 8 : 14;
-    for (let i = 0; i < waveCount; i++) {
-      const waveY = horizonY + (i + 1) * ((height - horizonY) / (waveCount + 1));
-      const waveOffset = Math.sin(animTime * 0.022 + waveY * 0.1) * 15 * (1 + windForce * 0.5);
-      ctx.beginPath();
-      ctx.moveTo(0, waveY);
-      ctx.lineTo(width, waveY);
-      ctx.stroke();
+    // 2. Ondas horizontais em Perspectiva 3D (Refinamento do lago com ondulações curtas e arqueadas)
+    ctx.strokeStyle = isLightTheme ? 'rgba(255, 255, 255, 0.28)' : 'rgba(255, 255, 255, 0.035)';
+    ctx.lineWidth = 1.0;
+    const rows = isMobile ? 7 : 13;
+    for (let r = 0; r < rows; r++) {
+      const waveY = horizonY + (r + 1) * ((height - horizonY) / (rows + 1));
+      const perspectiveScale = (waveY - horizonY) / (height - horizonY); // Fator de perspectiva 0 -> 1
+      
+      // Número de segmentos arqueados por linha
+      const segs = isMobile ? 2 : 4;
+      const spacing = width / segs;
+      
+      for (let s = 0; s < segs; s++) {
+        // Deslocamento de tempo horizontal senoidal para simular movimento de brisa
+        const baseX = s * spacing + (animTime * 0.35 * (1 + perspectiveScale * 0.6) + r * 95) % spacing;
+        const waveLength = (isMobile ? 55 : 130) * (0.35 + perspectiveScale * 0.8);
+        const waveHeight = 2.2 * perspectiveScale;
+        
+        const xStart = baseX - waveLength / 2;
+        const xEnd = xStart + waveLength;
+        
+        // Desenha uma onda arqueada suave usando curvas quadráticas
+        ctx.beginPath();
+        ctx.moveTo(xStart, waveY);
+        ctx.quadraticCurveTo(
+          xStart + waveLength * 0.5, 
+          waveY + Math.sin(animTime * 0.035 + s + r) * waveHeight, 
+          xEnd, 
+          waveY
+        );
+        ctx.stroke();
+      }
     }
 
     // 3. Desenhar o reflexo do astro na água (Sol ou Lua)
@@ -794,7 +821,83 @@
     ctx.restore();
   }
 
-  // Desenha a Árvore no canto esquerdo da tela (silhueta que serve de moldura)
+  // Desenha a Tessa (Cachorrinha Easter Egg) sentada na colina antes do lago
+  function drawTessa() {
+    ctx.save();
+    
+    // Posição base na colina do primeiro plano
+    const tessaX = width * 0.11;
+    // Calcula o Y exato da colina em tessaX para garantir que ela esteja sentada em cima dela
+    const t = tessaX / (width * 0.22);
+    const y0 = height;
+    const y1 = height * 0.82;
+    const y2 = height * 0.88;
+    const tessaY = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * y1 + t * t * y2;
+
+    // A cor acompanha a silhueta da terra (Slate escuro no claro, Preto noturno no escuro)
+    ctx.fillStyle = isLightTheme ? '#283548' : '#020306';
+    ctx.strokeStyle = isLightTheme ? '#283548' : '#020306';
+    ctx.lineWidth = 1.0;
+
+    // 1. Abdômen/Corpo (Elipse inclinada para trás)
+    ctx.beginPath();
+    ctx.ellipse(tessaX - 4, tessaY - 14, 7, 12, -0.15, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Peito/Pescoço (Curva subindo)
+    ctx.beginPath();
+    ctx.ellipse(tessaX + 1, tessaY - 18, 6, 8, 0.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Cabeça (Círculo no topo)
+    ctx.beginPath();
+    ctx.arc(tessaX + 2, tessaY - 26, 5.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 4. Focinho (Muzzle) apontando para a direita/lago
+    ctx.beginPath();
+    ctx.ellipse(tessaX + 6.5, tessaY - 26, 3.5, 2.2, 0.05, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 5. Orelhas (Orelhas caídas charmosas de Golden/Labrador)
+    ctx.beginPath();
+    ctx.ellipse(tessaX - 1, tessaY - 25, 2.2, 5.0, 0.18, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 6. Patas Dianteiras (Retas tocando o chão)
+    ctx.beginPath();
+    ctx.ellipse(tessaX + 3, tessaY - 7, 2.0, 7.0, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 7. Pata Traseira Dobrada (Sentada)
+    ctx.beginPath();
+    ctx.arc(tessaX - 5, tessaY - 5, 5.0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(tessaX - 3, tessaY - 2.5, 6.0, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 8. Rabo (Curva estilizada e peluda, erguida feliz e oscilando de leve)
+    const tailWiggle = Math.sin(animTime * 0.08) * 1.5;
+    ctx.beginPath();
+    ctx.moveTo(tessaX - 9, tessaY - 6);
+    ctx.quadraticCurveTo(tessaX - 15 + tailWiggle, tessaY - 10, tessaX - 12 + tailWiggle, tessaY - 17);
+    ctx.quadraticCurveTo(tessaX - 10 + tailWiggle, tessaY - 13, tessaX - 8, tessaY - 8);
+    ctx.closePath();
+    ctx.fill();
+
+    // 9. Pequena coleira brilhante para detalhe de alta fidelidade
+    ctx.strokeStyle = isLightTheme ? '#f59e0b' : '#00f2fe'; // Ouro no claro, ciano neon no escuro
+    ctx.lineWidth = 1.0;
+    ctx.beginPath();
+    ctx.moveTo(tessaX - 1, tessaY - 22);
+    ctx.lineTo(tessaX + 5, tessaY - 20);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Desenha a Árvore no canto esquerdo da tela (silhueta que serve de moldura com folhagem abundante)
   function drawLeftTree() {
     ctx.save();
     
@@ -843,31 +946,141 @@
     ctx.closePath();
     ctx.fill();
     
-    // 3. Desenha a folhagem (Nuvens de folhas)
-    // No Modo Claro é verde translúcido e orgânico, no Modo Escuro é silhueta escura
-    const foliageColor = isLightTheme ? 'rgba(22, 163, 74, 0.2)' : 'rgba(3, 5, 10, 0.55)';
-    ctx.fillStyle = foliageColor;
-    
-    // Nuvens nos extremos do Galho 1
-    ctx.beginPath();
-    ctx.arc(width * 0.16, height * 0.76, 26, 0, Math.PI * 2);
-    ctx.arc(width * 0.18, height * 0.74, 20, 0, Math.PI * 2);
-    ctx.arc(width * 0.14, height * 0.78, 18, 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Nuvens nos extremos do Galho 2
-    ctx.beginPath();
-    ctx.arc(width * 0.22, height * 0.62, 36, 0, Math.PI * 2);
-    ctx.arc(width * 0.25, height * 0.59, 28, 0, Math.PI * 2);
-    ctx.arc(width * 0.19, height * 0.64, 26, 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Nuvens nos extremos do Galho 3
-    ctx.beginPath();
-    ctx.arc(width * 0.25, height * 0.49, 42, 0, Math.PI * 2);
-    ctx.arc(width * 0.28, height * 0.45, 32, 0, Math.PI * 2);
-    ctx.arc(width * 0.22, height * 0.52, 28, 0, Math.PI * 2);
-    ctx.fill();
+    // 3. Desenha a folhagem (Nuvens de folhas extremamente densas e 3D)
+    if (isLightTheme) {
+      // No Modo Claro, desenhamos várias camadas de cores (verdes e outonais com opacidades)
+      // para criar um efeito tridimensional e rico, cobrindo os galhos
+      
+      const drawLeafCluster = (cx, cy, baseRadius) => {
+        // Camada 1: Verde floresta profundo no centro (alta opacidade para tapar os galhos)
+        ctx.fillStyle = 'rgba(22, 163, 74, 0.82)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, baseRadius, 0, Math.PI * 2);
+        ctx.arc(cx - baseRadius * 0.4, cy + baseRadius * 0.3, baseRadius * 0.8, 0, Math.PI * 2);
+        ctx.arc(cx + baseRadius * 0.4, cy - baseRadius * 0.2, baseRadius * 0.9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Camada 2: Verde esmeralda vibrante intermediário
+        ctx.fillStyle = 'rgba(34, 197, 94, 0.88)';
+        ctx.beginPath();
+        ctx.arc(cx - baseRadius * 0.2, cy - baseRadius * 0.3, baseRadius * 0.75, 0, Math.PI * 2);
+        ctx.arc(cx + baseRadius * 0.3, cy + baseRadius * 0.2, baseRadius * 0.7, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Camada 3: Verde claro translúcido nas bordas para iluminar
+        ctx.fillStyle = 'rgba(74, 222, 128, 0.85)';
+        ctx.beginPath();
+        ctx.arc(cx + baseRadius * 0.5, cy - baseRadius * 0.4, baseRadius * 0.5, 0, Math.PI * 2);
+        ctx.arc(cx - baseRadius * 0.5, cy - baseRadius * 0.2, baseRadius * 0.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Camada 4: Pequenos destaques dourados/outonais na copa para dar calor e textura
+        ctx.fillStyle = 'rgba(234, 179, 8, 0.70)';
+        ctx.beginPath();
+        ctx.arc(cx + baseRadius * 0.2, cy - baseRadius * 0.5, baseRadius * 0.35, 0, Math.PI * 2);
+        ctx.arc(cx - baseRadius * 0.1, cy + baseRadius * 0.4, baseRadius * 0.3, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      // Desenhamos folhagem densa e espessa ao longo de toda a estrutura (com mais clusters e tamanhos maiores!)
+      // Junção do Tronco e base dos galhos (para tapar completamente o visual "seco")
+      drawLeafCluster(width * 0.02, height * 0.82, 45);
+      drawLeafCluster(width * 0.04, height * 0.76, 48);
+      drawLeafCluster(width * 0.06, height * 0.64, 52);
+      drawLeafCluster(width * 0.05, height * 0.54, 55);
+      drawLeafCluster(width * 0.03, height * 0.45, 48);
+
+      // Ao longo do Galho 1 (Inferior)
+      drawLeafCluster(width * 0.08, height * 0.81, 40);
+      drawLeafCluster(width * 0.12, height * 0.78, 38);
+      drawLeafCluster(width * 0.16, height * 0.76, 34);
+      drawLeafCluster(width * 0.20, height * 0.74, 28);
+
+      // Ao longo do Galho 2 (Médio)
+      drawLeafCluster(width * 0.09, height * 0.69, 48);
+      drawLeafCluster(width * 0.14, height * 0.65, 45);
+      drawLeafCluster(width * 0.19, height * 0.62, 42);
+      drawLeafCluster(width * 0.24, height * 0.60, 36);
+      drawLeafCluster(width * 0.28, height * 0.58, 28);
+
+      // Ao longo do Galho 3 (Superior)
+      drawLeafCluster(width * 0.08, height * 0.56, 52);
+      drawLeafCluster(width * 0.13, height * 0.52, 48);
+      drawLeafCluster(width * 0.18, height * 0.49, 45);
+      drawLeafCluster(width * 0.23, height * 0.47, 40);
+      drawLeafCluster(width * 0.28, height * 0.44, 34);
+      drawLeafCluster(width * 0.32, height * 0.42, 28);
+
+      // Clusters de enchimento (entre os galhos para dar um canopy gordo e contínuo)
+      drawLeafCluster(width * 0.08, height * 0.73, 44);
+      drawLeafCluster(width * 0.13, height * 0.70, 42);
+      drawLeafCluster(width * 0.10, height * 0.60, 44);
+      drawLeafCluster(width * 0.16, height * 0.56, 40);
+      drawLeafCluster(width * 0.08, height * 0.44, 48);
+      drawLeafCluster(width * 0.15, height * 0.41, 42);
+
+    } else {
+      // No Modo Escuro, desenhamos uma silhueta densa, pesada e preenchida de alta fidelidade
+      // com sobreposições em tons escuros frios de Slate para dar volume realista
+      const drawDarkCluster = (cx, cy, baseRadius) => {
+        // Base escura principal (quase totalmente opaca para cobrir os galhos)
+        ctx.fillStyle = 'rgba(3, 5, 10, 0.98)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, baseRadius, 0, Math.PI * 2);
+        ctx.arc(cx - baseRadius * 0.4, cy + baseRadius * 0.3, baseRadius * 0.8, 0, Math.PI * 2);
+        ctx.arc(cx + baseRadius * 0.4, cy - baseRadius * 0.2, baseRadius * 0.9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Destaque de relevo em Slate escuro para volumetria sob a luz da lua (com mais brilho/contraste lunar)
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.beginPath();
+        ctx.arc(cx - baseRadius * 0.1, cy - baseRadius * 0.2, baseRadius * 0.7, 0, Math.PI * 2);
+        ctx.arc(cx + baseRadius * 0.2, cy + baseRadius * 0.1, baseRadius * 0.65, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = 'rgba(30, 41, 59, 0.65)';
+        ctx.beginPath();
+        ctx.arc(cx + baseRadius * 0.3, cy - baseRadius * 0.3, baseRadius * 0.45, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      // Desenha folhagem abundante e preenchida no modo escuro
+      // Junção do Tronco e base
+      drawDarkCluster(width * 0.02, height * 0.82, 45);
+      drawDarkCluster(width * 0.04, height * 0.76, 48);
+      drawDarkCluster(width * 0.06, height * 0.64, 52);
+      drawDarkCluster(width * 0.05, height * 0.54, 55);
+      drawDarkCluster(width * 0.03, height * 0.45, 48);
+
+      // Ao longo do Galho 1 (Inferior)
+      drawDarkCluster(width * 0.08, height * 0.81, 40);
+      drawDarkCluster(width * 0.12, height * 0.78, 38);
+      drawDarkCluster(width * 0.16, height * 0.76, 34);
+      drawDarkCluster(width * 0.20, height * 0.74, 28);
+
+      // Ao longo do Galho 2 (Médio)
+      drawDarkCluster(width * 0.09, height * 0.69, 48);
+      drawDarkCluster(width * 0.14, height * 0.65, 45);
+      drawDarkCluster(width * 0.19, height * 0.62, 42);
+      drawDarkCluster(width * 0.24, height * 0.60, 36);
+      drawDarkCluster(width * 0.28, height * 0.58, 28);
+
+      // Ao longo do Galho 3 (Superior)
+      drawDarkCluster(width * 0.08, height * 0.56, 52);
+      drawDarkCluster(width * 0.13, height * 0.52, 48);
+      drawDarkCluster(width * 0.18, height * 0.49, 45);
+      drawDarkCluster(width * 0.23, height * 0.47, 40);
+      drawDarkCluster(width * 0.28, height * 0.44, 34);
+      drawDarkCluster(width * 0.32, height * 0.42, 28);
+
+      // Clusters de enchimento (Modo Escuro)
+      drawDarkCluster(width * 0.08, height * 0.73, 44);
+      drawDarkCluster(width * 0.13, height * 0.70, 42);
+      drawDarkCluster(width * 0.10, height * 0.60, 44);
+      drawDarkCluster(width * 0.16, height * 0.56, 40);
+      drawDarkCluster(width * 0.08, height * 0.44, 48);
+      drawDarkCluster(width * 0.15, height * 0.41, 42);
+    }
     
     ctx.restore();
   }
@@ -918,6 +1131,9 @@
 
     // 5.5 Desenha a Margem de Terra no Primeiro Plano (canto inferior esquerdo)
     drawForegroundShore();
+
+    // Desenha a Tessa sentada na colina do primeiro plano antes do lago
+    drawTessa();
 
     // 5.6 Desenha formigas andando no canto da terra (Modo Noite apenas)
     if (!isLightTheme) {

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guilherme Silvestre Barcelos - Currículo Premium</title>
+  
+  <!-- Fontes Premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --------------------------------------------------
+       SISTEMA DE DESIGN (CSS VARIÁVEIS)
+    -------------------------------------------------- */
+    :root {
+      --bg-gradient: radial-gradient(circle at 0% 0%, #0d1224 0%, #040612 100%);
+      --card-bg: rgba(13, 20, 42, 0.45);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(0, 242, 254, 0.25);
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --accent: #a18cd1;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-highlight: #38bdf8;
+      --shadow-color: rgba(0, 242, 254, 0.15);
+      --glow-light: 0 0 25px var(--shadow-color);
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* --------------------------------------------------
+       RESET E ESTILOS GERAIS
+    -------------------------------------------------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 3rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 2.5rem;
+      position: relative;
+    }
+
+    /* --------------------------------------------------
+       BOTÃO FLUTUANTE DE IMPRESSÃO
+    -------------------------------------------------- */
+    .action-panel {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 100;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-premium {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      color: #040612;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(0, 242, 254, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 242, 254, 0.5);
+    }
+
+    .btn-premium svg {
+      transition: transform 0.3s ease;
+    }
+    
+    .btn-premium:hover svg {
+      transform: scale(1.15);
+    }
+
+    /* --------------------------------------------------
+       SIDEBAR ESQUERDA (PERFIL E CONTATOS)
+    -------------------------------------------------- */
+    .sidebar {
+      display: flex;
+      flex-column: 1;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .profile-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--glow-light);
+      transform: translateY(-5px);
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.8;
+      filter: blur(4px);
+      animation: rotateGlow 8s linear infinite;
+    }
+
+    .avatar {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid #0d1224;
+      object-fit: cover;
+      z-index: 2;
+    }
+
+    @keyframes rotateGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 30%, #a1a8c0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+
+    .contact-item:hover {
+      color: var(--text-main);
+    }
+
+    .contact-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* CARD DE HABILIDADES */
+    .skills-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 2rem;
+      transition: var(--transition-smooth);
+    }
+
+    .skills-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--glow-light);
+    }
+
+    .section-title-small {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.5rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .skill-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: var(--transition-smooth);
+      cursor: default;
+    }
+
+    .skill-pill:hover {
+      background: rgba(0, 242, 254, 0.08);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .education-item {
+      margin-bottom: 1rem;
+    }
+
+    .education-school {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .education-degree {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .education-year {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+
+    /* --------------------------------------------------
+       CONTEÚDO PRINCIPAL (DIREITO)
+    -------------------------------------------------- */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .content-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      transition: var(--transition-smooth);
+    }
+
+    .content-section:hover {
+      border-color: var(--card-border-hover);
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 45px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .about-text {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* PROJETOS GRID */
+    .projects-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .project-card {
+      position: relative;
+      padding-left: 1.8rem;
+      border-left: 2px solid rgba(255, 255, 255, 0.08);
+      transition: var(--transition-smooth);
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      left: -6px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary);
+      border: 2px solid #040612;
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--primary);
+      transition: var(--transition-smooth);
+    }
+
+    .project-card:hover {
+      border-left-color: var(--primary);
+    }
+
+    .project-card:hover::before {
+      background-color: #ffffff;
+      box-shadow: 0 0 15px #ffffff;
+      transform: scale(1.3);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .project-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+
+    .project-link:hover {
+      color: var(--primary);
+    }
+
+    .project-badge {
+      font-family: 'Outfit', sans-serif;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project-description {
+      color: var(--text-highlight);
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-bullets {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .project-bullets li {
+      position: relative;
+      padding-left: 1.2rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .project-bullets li::before {
+      content: '⚡';
+      position: absolute;
+      left: 0;
+      top: 1px;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .project-bullets strong {
+      color: var(--text-main);
+    }
+
+    /* IDIOMAS */
+    .languages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .lang-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .lang-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .lang-level {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .lang-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.3rem;
+    }
+
+    .lang-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      border-radius: 10px;
+    }
+
+    /* --------------------------------------------------
+       RESPONSIVIDADE (MOBILE E TABLET)
+    -------------------------------------------------- */
+    @media (max-width: 850px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      .container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .action-panel {
+        bottom: 1rem;
+        right: 1rem;
+      }
+      .btn-premium {
+        padding: 0.75rem 1.4rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* --------------------------------------------------
+       ESTILOS DE IMPRESSÃO (PDF / IMPRESSORA)
+       ESSES ESTILOS TORNAM O CURRÍCULO 100% ATS-FRIENDLY
+    -------------------------------------------------- */
+    @media print {
+      :root {
+        --text-main: #000000;
+        --text-muted: #333333;
+        --text-highlight: #000000;
+      }
+      
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 11pt !important;
+        display: block !important;
+      }
+
+      .container {
+        display: block !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .action-panel, .avatar-wrapper, .avatar-glow {
+        display: none !important;
+      }
+
+      .sidebar, .main-content {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      .profile-card, .skills-card, .content-section, .lang-item {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin-bottom: 1.5rem !important;
+        border-radius: 0 !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+        text-align: left !important;
+      }
+
+      .profile-card {
+        border-bottom: 2px solid #000000 !important;
+        padding-bottom: 1rem !important;
+      }
+
+      .name {
+        font-size: 24pt !important;
+        color: #000000 !important;
+        -webkit-text-fill-color: initial !important;
+        margin-bottom: 0.2rem !important;
+      }
+
+      .tagline {
+        font-size: 12pt !important;
+        color: #333333 !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      .contact-list {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 1.5rem !important;
+        border-top: none !important;
+        padding-top: 0 !important;
+      }
+
+      .contact-item {
+        color: #000000 !important;
+        font-size: 9pt !important;
+      }
+
+      .contact-item svg {
+        display: none !important;
+      }
+
+      .section-title, .section-title-small {
+        font-size: 14pt !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #000000 !important;
+        padding-bottom: 0.2rem !important;
+        margin-bottom: 0.8rem !important;
+        margin-top: 1rem !important;
+      }
+
+      .section-title::after {
+        display: none !important;
+      }
+
+      .skills-grid {
+        display: block !important;
+      }
+
+      .skill-pill {
+        display: inline-block !important;
+        border: none !important;
+        background: none !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin-right: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
+        font-size: 10pt !important;
+      }
+
+      .skill-pill::after {
+        content: ', ';
+      }
+
+      .skill-pill:last-child::after {
+        content: '.';
+      }
+
+      .project-card {
+        border-left: none !important;
+        padding-left: 0 !important;
+        margin-bottom: 1rem !important;
+        page-break-inside: avoid !important;
+      }
+
+      .project-card::before {
+        display: none !important;
+      }
+
+      .project-title {
+        font-size: 11pt !important;
+        color: #000000 !important;
+      }
+
+      .project-badge {
+        border: none !important;
+        background: none !important;
+        color: #333333 !important;
+        font-size: 9pt !important;
+        font-weight: normal !important;
+        padding: 0 !important;
+      }
+
+      .project-bullets li {
+        color: #000000 !important;
+        font-size: 10pt !important;
+      }
+
+      .project-bullets li::before {
+        content: '- ' !important;
+      }
+
+      .lang-bar {
+        display: none !important;
+      }
+
+      .languages-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BOTÃO FLUTUANTE PARA IMPRESSÃO -->
+  <div class="action-panel">
+    <button class="btn-premium" onclick="window.print()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+      Imprimir / PDF
+    </button>
+  </div>
+
+  <div class="container">
+    
+    <!-- SIDEBAR ESQUERDA -->
+    <aside class="sidebar">
+      
+      <!-- PERFIL PRINCIPAL -->
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <div class="avatar-glow"></div>
+          <img class="avatar" src="https://avatars.githubusercontent.com/u/202423426?v=4" alt="Guilherme Silvestre Barcelos">
+        </div>
+        <h1 class="name">Guilherme S. Barcelos</h1>
+        <div class="tagline">Engenharia de Software</div>
+        
+        <ul class="contact-list">
+          <li>
+            <a class="contact-item" href="tel:+5561985963447">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              (61) 98596-3447
+            </a>
+          </li>
+          <li>
+            <a class="contact-item" href="mailto:guilhermebarcelos2006@gmail.com">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              guilhermebarcelos2006@gmail.com
+            </a>
+          </li>
+          <li>
+            <a class="contact-item" href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+              in/guilherme-silvestre
+            </a>
+          </li>
+          <li>
+            <a class="contact-item" href="https://github.com/guilhermebarcelos06" target="_blank">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              github/guilhermebarcelos06
+            </a>
+          </li>
+          <li class="contact-item">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            Brasília - DF, Brasil
+          </li>
+        </ul>
+      </div>
+
+      <!-- FORMAÇÃO ACADÊMICA -->
+      <div class="skills-card">
+        <h2 class="section-title-small">
+          🎓 Formação
+        </h2>
+        <div class="education-item">
+          <div class="education-school">Engenharia de Software</div>
+          <div class="education-degree">Bacharelado (3º Período)</div>
+          <div class="education-degree">Universidade Católica de Brasília (UCB)</div>
+          <div class="education-year">Conclusão: 2029</div>
+        </div>
+      </div>
+
+      <!-- COMPETÊNCIAS / TECNOLOGIAS -->
+      <div class="skills-card">
+        <h2 class="section-title-small">
+          🛠️ Tecnologias
+        </h2>
+        <div class="skills-grid">
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">C/C++</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">React</span>
+          <span class="skill-pill">Spring Boot</span>
+          <span class="skill-pill">PostgreSQL</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Docker Compose</span>
+          <span class="skill-pill">APIs RESTful</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">Git & GitHub</span>
+          <span class="skill-pill">Estruturas de Dados</span>
+          <span class="skill-pill">POO (Programação Orientada a Objetos)</span>
+          <span class="skill-pill">Lógica de Programação</span>
+          <span class="skill-pill">Metodologias Ágeis (Scrum)</span>
+          <span class="skill-pill">Tailwind CSS</span>
+          <span class="skill-pill">Vite</span>
+        </div>
+      </div>
+
+    </aside>
+    
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+      
+      <!-- PERFIL PROFISSIONAL -->
+      <section class="content-section">
+        <h2 class="section-title">🎯 Objetivo & Perfil</h2>
+        <p class="about-text">
+          Estudante de Engenharia de Software na Universidade Católica de Brasília (UCB), focado em aplicar boas práticas de desenvolvimento (Clean Code e SOLID) para a construção de interfaces modernas e APIs resilientes. Experiência prática autodidata e acadêmica no desenvolvimento de soluções completas utilizando ecossistemas modernos como React/TypeScript no frontend, e Java/Spring Boot integrados com Docker no backend. Busco ativamente oportunidades de <strong>Estágio ou vaga Júnior em Desenvolvimento de Software</strong> para contribuir com projetos reais e acelerar meu aprimoramento técnico.
+        </p>
+      </section>
+
+      <!-- PROJETOS DE DESTAQUE -->
+      <section class="content-section">
+        <h2 class="section-title">🚀 Projetos de Destaque</h2>
+        <div class="projects-timeline">
+          
+          <!-- PROJETO 1 -->
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">
+                J.A.R.V.I.S — Assistente Virtual Interativo
+                <a class="project-link" href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" title="Ver repositório no GitHub">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </h3>
+              <span class="project-badge">TypeScript + AI</span>
+            </div>
+            <div class="project-description">Assistente inteligente integrado com IA, chat contínuo, geração de imagens e controle multimídia.</div>
+            <ul class="project-bullets">
+              <li>Desenvolveu uma SPA de alta performance utilizando <strong>React, TypeScript e Tailwind CSS</strong> com padronizações de qualidade via <strong>ESLint</strong>.</li>
+              <li>Implementou um motor de processamento vocal hands-free via <strong>Web Speech API (Reconhecimento/Síntese)</strong>, obtendo <strong>98% de precisão</strong> na execução de comandos contextuais (ex: reprodução no YouTube Player API e respostas de chat).</li>
+              <li>Eliminou bugs silenciosos em tempo de desenvolvimento configurando <strong>tipagem estrita com TypeScript</strong>, minimizando erros de runtime em <strong>95%</strong>.</li>
+            </ul>
+          </div>
+
+          <!-- PROJETO 2 -->
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">
+                java-course-platform — API de Controle Acadêmico
+                <a class="project-link" href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" title="Ver repositório no GitHub">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </h3>
+              <span class="project-badge">Java + DevOps</span>
+            </div>
+            <div class="project-description">Backend robusto para gerenciamento e matrículas em plataformas de cursos online.</div>
+            <ul class="project-bullets">
+              <li>Modelou e codificou APIs RESTful escaláveis em <strong>Java com Spring Boot (Spring Data JPA, Hibernate)</strong> seguindo os padrões de arquitetura em camadas e injeção de dependência estável.</li>
+              <li>Estruturou e otimizou o setup local de desenvolvimento, reduzindo o tempo de preparação em <strong>90% (de 1 hora para menos de 5 minutos)</strong> através do provisionamento total automatizado com <strong>Docker e Docker Compose</strong>.</li>
+              <li>Fez a integração com o banco de dados relacional <strong>PostgreSQL</strong>, configurando indexes de alta performance e garantindo proteção rigorosa contra injeções.</li>
+            </ul>
+          </div>
+
+          <!-- PROJETO 3 -->
+          <div class="project-card">
+            <div class="project-header">
+              <h3 class="project-title">
+                DEVBank — Simulador Financeiro
+                <a class="project-link" href="https://github.com/guilhermebarcelos06/DEVBank" target="_blank" title="Ver repositório no GitHub">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </h3>
+              <span class="project-badge">C++ + Algoritmos</span>
+            </div>
+            <div class="project-description">Terminal bancário offline interativo com manipulação persistente local.</div>
+            <ul class="project-bullets">
+              <li>Construiu a arquitetura do simulador financeiro em <strong>C++</strong> aplicando os pilares da programação orientada a objetos (POO) e controle rigoroso de fluxo.</li>
+              <li>Otimizou a latência e o consumo de memória local na busca e ordenação de contas bancárias por meio da manipulação direta de ponteiros e <strong>alocação de memória dinâmica</strong>.</li>
+              <li>Implementou rotinas eficientes de leitura e escrita em arquivos locais para a persistência duradoura de registros.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- IDIOMAS -->
+      <section class="content-section">
+        <h2 class="section-title">🗣️ Idiomas & Fluência</h2>
+        <div class="languages-grid">
+          <div class="lang-item">
+            <div class="lang-name">Inglês</div>
+            <div class="lang-level">Avançado / Técnico</div>
+            <div class="lang-bar">
+              <div class="lang-bar-fill" style="width: 85%;"></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-name">Alemão</div>
+            <div class="lang-level">Básico</div>
+            <div class="lang-bar">
+              <div class="lang-bar-fill" style="width: 25%;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</body>
+</html>

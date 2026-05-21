@@ -899,5 +899,17 @@
 
   </div>
 
+  <script>
+    // Trigger automático de impressão/PDF quando acessado via ?print=true
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('print')) {
+        // Pequeno atraso para garantir que fontes e renderização estejam completas
+        setTimeout(() => {
+          window.print();
+        }, 600);
+      }
+    });
+  </script>
 </body>
 </html>

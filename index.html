@@ -1,545 +1,774 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guilherme Silvestre Barcelos | Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guilherme Silvestre Barcelos - Portfolio</title>
+  
+  <!-- Fontes de Alta Qualidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    },
-                    colors: {
-                        background: '#050505',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        glassBorder: 'rgba(255, 255, 255, 0.08)',
-                        accent: '#818cf8',
-                    },
-                    animation: {
-                        'blob': 'blob 10s infinite',
-                        'fade-in': 'fadeIn 1s ease-out forwards',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            primary: '#00f2fe',
+            secondary: '#4facfe',
+            accent: '#a18cd1',
+          }
         }
-    </script>
+      }
+    }
+  </script>
 
-    <style>
+  <style>
+    /* --------------------------------------------------
+       SISTEMA DE TEMA FLUIDO E VARIÁVEIS CSS
+    -------------------------------------------------- */
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 50%, #060913 0%, #020308 100%);
+      --card-bg: rgba(10, 15, 30, 0.5);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(0, 242, 254, 0.3);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-highlight: #38bdf8;
+      --shadow-color: rgba(0, 242, 254, 0.15);
+      --glow: 0 10px 40px var(--shadow-color);
+      --noise-opacity: 0.035;
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --accent: #a18cd1;
+    }
 
-        :root {
+    .light-theme {
+      --bg-gradient: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --card-border-hover: rgba(14, 165, 233, 0.45);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-highlight: #0284c7;
+      --shadow-color: rgba(14, 165, 233, 0.15);
+      --glow: 0 10px 45px var(--shadow-color);
+      --noise-opacity: 0.015;
+    }
 
-            --x: 50vw;
-            --y: 50vh;
-        }
+    * {
+      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.3s ease;
+    }
 
-        body {
-            background-color: #050505;
-            color: #e5e5e5;
-            margin: 0;
-            overflow-x: hidden;
-            position: relative;
-        }
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            background: radial-gradient(
-                    circle 800px at var(--x) var(--y),
-                    rgba(99, 102, 241, 0.1),
-                    transparent 50%
-            );
-            will-change: background;
-        }
+    /* --------------------------------------------------
+       BLOBS DE GRADIENTE FLUIDOS DE FUNDO
+    -------------------------------------------------- */
+    .ambient-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: -2;
+      opacity: 0.35;
+      animation: floatBlob 22s infinite alternate ease-in-out;
+    }
+    .blob-1 { top: -10%; left: 10%; width: 550px; height: 550px; background: rgba(0, 242, 254, 0.15); }
+    .blob-2 { bottom: -10%; right: 10%; width: 450px; height: 450px; background: rgba(161, 140, 209, 0.15); animation-delay: -5s; }
+    .blob-3 { top: 35%; left: 55%; width: 350px; height: 350px; background: rgba(79, 172, 254, 0.15); animation-delay: -10s; }
 
-        .ambient-blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            z-index: -2;
-            animation: blob 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .blob-1 { top: 10%; left: 20%; width: 400px; height: 400px; background: rgba(79, 70, 229, 0.15); animation-delay: 0s; }
-        .blob-2 { bottom: 10%; right: 20%; width: 300px; height: 300px; background: rgba(147, 51, 234, 0.15); animation-delay: -5s; }
-        .blob-3 { top: 40%; left: 60%; width: 250px; height: 250px; background: rgba(59, 130, 246, 0.15); animation-delay: -10s; }
+    .light-theme .blob-1 { background: rgba(14, 165, 233, 0.15); }
+    .light-theme .blob-2 { background: rgba(161, 140, 209, 0.15); }
+    .light-theme .blob-3 { background: rgba(2, 132, 199, 0.12); }
 
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(70px, -50px) scale(1.15); }
+      100% { transform: translate(-40px, 40px) scale(0.9); }
+    }
 
-        .glass-card {
-            background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.03) 0%,
-                    rgba(255, 255, 255, 0.01) 100%
-            );
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-            border-left: 1px solid rgba(255, 255, 255, 0.12);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            border-right: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+    /* TEXTURA DE RUÍDO */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 50;
+      opacity: var(--noise-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
 
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.25);
-            background: linear-gradient(
-                    135deg,
-                    rgba(255, 255, 255, 0.08) 0%,
-                    rgba(255, 255, 255, 0.02) 100%
-            );
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.3);
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
-        }
+    /* --------------------------------------------------
+       GLASS CARDS MODERNOS
+    -------------------------------------------------- */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 24px;
+      transition: var(--transition-base);
+    }
 
-        .text-liquid {
-            background: linear-gradient(to right, #fff 20%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(165, 180, 252, 0.1);
-        }
+    .glass-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--glow);
+      transform: translateY(-5px);
+    }
 
-        .typing-effect {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 4px solid #818cf8;
-            width: 0;
+    /* BRILHO ORGÂNICO DO AVATAR */
+    .avatar-wrapper {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+    }
+    
+    .avatar-glow {
+      position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.85;
+      animation: rotateGlow 10s linear infinite;
+    }
 
-            animation:
-                    typing 3.5s steps(30, end) forwards,
-                    blink 0.75s step-end infinite;
+    @keyframes rotateGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-            animation-delay: 0.2s;
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink {
-            from, to { border-color: transparent }
-            50% { border-color: #818cf8 }
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050505;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 10px;
-        }
-    </style>
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(79, 172, 254, 0.3);
+      border-radius: 20px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(79, 172, 254, 0.6);
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-indigo-500/30 selection:text-white">
+<body class="antialiased selection:bg-cyan-500/20 selection:text-cyan-300">
 
-<div class="noise-overlay"></div>
+  <!-- Efeitos de Fundo -->
+  <div class="noise-overlay"></div>
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
 
-<div class="ambient-blob blob-1"></div>
-<div class="ambient-blob blob-2"></div>
-<div class="ambient-blob blob-3"></div>
-
-<nav class="fixed top-0 w-full z-40 border-b border-white/5 backdrop-blur-md bg-black/20">
+  <!-- --------------------------------------------------
+       NAVEGAÇÃO FLUTUANTE
+  -------------------------------------------------- -->
+  <nav class="fixed top-0 w-full z-40 border-b border-white/5 backdrop-blur-md bg-black/10">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="font-mono font-bold text-lg tracking-wider text-white hover:text-indigo-400 transition-colors cursor-pointer">
-            GSB<span class="text-indigo-500">.dev</span>
+      <div class="font-display font-extrabold text-xl tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent cursor-pointer">
+        GSB<span class="text-[var(--text-main)]">.dev</span>
+      </div>
+      
+      <!-- Links e Controles -->
+      <div class="flex items-center gap-6 md:gap-8">
+        <div class="hidden sm:flex gap-6 text-sm font-medium text-[var(--text-muted)]">
+          <a href="#about" class="hover:text-[var(--text-main)] transition-colors relative group font-sans" data-i18n="nav_about">Sobre Mim</a>
+          <a href="#areas" class="hover:text-[var(--text-main)] transition-colors relative group font-sans" data-i18n="nav_areas">Áreas de Foco</a>
+          <a href="#projects" class="hover:text-[var(--text-main)] transition-colors relative group font-sans" data-i18n="nav_projects">Projetos</a>
         </div>
-        <div class="flex gap-8 text-sm font-medium text-gray-400">
-            <a href="#about" class="hover:text-white transition-colors relative group">
-                Sobre
-                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#skills" class="hover:text-white transition-colors relative group">
-                Skills
-                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#projects" class="hover:text-white transition-colors relative group">
-                Projetos
-                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full"></span>
-            </a>
-        </div>
+        
+        <!-- Toggle Linguagem -->
+        <button id="langBtn" onclick="toggleLanguage()" class="px-3 py-1.5 text-xs font-mono font-bold tracking-wider rounded-lg glass-card text-[var(--text-muted)] hover:text-primary border border-white/5 transition-all">
+          EN
+        </button>
+
+        <!-- Toggle Tema (Sol/Lua) -->
+        <button id="themeBtn" onclick="toggleTheme()" class="p-2 rounded-lg glass-card border border-white/5 text-[var(--text-muted)] hover:text-primary transition-all">
+          <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+          <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+      </div>
     </div>
-</nav>
+  </nav>
 
-<main class="max-w-5xl mx-auto px-6 pt-36 pb-20 flex flex-col gap-32 relative z-10">
-
-    <section class="flex flex-col gap-8 animate-fade-in relative">
-        <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-indigo-300 text-xs font-mono w-fit backdrop-blur-sm">
-            <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-            Disponível para Projetos
+  <!-- --------------------------------------------------
+       CONTEÚDO PRINCIPAL (BENTO LAYOUT)
+  -------------------------------------------------- -->
+  <main class="max-w-5xl mx-auto px-6 pt-32 pb-20 flex flex-col gap-24 relative z-10 font-sans">
+    
+    <!-- --------------------------------------------------
+         HERO SECTION
+    -------------------------------------------------- -->
+    <section class="flex flex-col-reverse md:flex-row items-center gap-12 pt-8 md:pt-16">
+      
+      <!-- Textos Hero -->
+      <div class="flex-1 flex flex-col gap-6 text-center md:text-left">
+        
+        <!-- Badge Status -->
+        <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-300 text-xs font-mono w-fit mx-auto md:mx-0 backdrop-blur-sm shadow-[0_0_15px_rgba(0,242,254,0.05)]" data-i18n="hero_badge">
+          🟢 Buscando Estágio em Desenvolvimento de Software
         </div>
-
-        <h1 class="text-3xl sm:text-4xl md:text-8xl font-bold tracking-tight text-white leading-tight">
-            Transformando <br />
-
-            <span class="text-liquid typing-effect pr-2 pb-2">código em soluções.</span>
+        
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight leading-tight text-[var(--text-main)]" data-i18n="hero_title">
+          Transformando lógica em soluções de impacto
         </h1>
-
-        <div class="max-w-2xl relative">
-            <div class="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 to-transparent opacity-50"></div>
-            <p class="text-xl text-gray-400 pl-4 leading-relaxed">
-                Olá, eu sou <strong class="text-white">Guilherme Silvestre Barcelos</strong>.<br>
-                Estudante de Engenharia de Software na UCB, focado em criar experiências digitais robustas e performáticas.
-                <span class="block mt-2 text-indigo-400 font-mono text-sm">Full Stack & C/C++ Enthusiast</span>
-            </p>
+        
+        <p class="text-lg md:text-xl text-[var(--text-muted)] leading-relaxed font-sans max-w-xl" data-i18n="hero_subtitle">
+          Estudante de Engenharia de Software na UCB focado em construir aplicações de alta performance e bases computacionais sólidas em qualquer área.
+        </p>
+        
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start mt-4">
+          <a href="#contact" class="px-8 py-4 bg-gradient-to-r from-secondary to-primary text-black font-extrabold rounded-xl hover:scale-105 transition-all shadow-[0_8px_30px_rgba(0,242,254,0.3)]" data-i18n="hero_cta">
+            Entre em contato
+          </a>
+          <a href="./curriculo_premium.html?print=true" target="_blank" class="px-8 py-4 glass-card text-[var(--text-main)] border border-[var(--card-border)] rounded-xl font-bold hover:text-primary hover:border-cyan-500/30 transition-all flex items-center gap-2" data-i18n="hero_cv">
+            📄 Baixar Currículo em PDF
+          </a>
         </div>
-
-        <div class="flex flex-wrap gap-4 mt-4">
-            <a href="#contact" class="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                Entre em contato
-            </a>
-            <a href="https://github.com/guilhermebarcelos06" target="_blank" class="px-8 py-4 glass-card text-white rounded-lg font-medium hover:text-indigo-300 transition-all flex items-center gap-3">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-            </a>
-            <a href="./curriculo_premium.html" target="_blank" class="px-8 py-4 glass-card text-indigo-300 border border-indigo-500/20 rounded-lg font-bold hover:text-white hover:border-indigo-400 transition-all flex items-center gap-2">
-                📄 Currículo Premium / PDF
-            </a>
+      </div>
+      
+      <!-- Foto de Perfil Premium -->
+      <div class="flex-shrink-0">
+        <div class="avatar-wrapper">
+          <div class="avatar-glow"></div>
+          <img class="relative w-full h-full rounded-full border-4 border-slate-950 object-cover z-10" src="https://avatars.githubusercontent.com/u/202423426?v=4" alt="Guilherme Silvestre Barcelos">
         </div>
+      </div>
     </section>
 
-    <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- --------------------------------------------------
+         SOBRE MIM
+    -------------------------------------------------- -->
+    <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Bloco Sobre -->
+      <div class="lg:col-span-7 glass-card p-8 md:p-10 rounded-3xl relative overflow-hidden group">
+        <div class="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all duration-700"></div>
 
-        <div class="lg:col-span-7 glass-card p-8 md:p-10 rounded-2xl relative overflow-hidden group">
-            <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700"></div>
+        <h3 class="text-3xl font-display font-extrabold mb-6 flex items-center gap-3 text-[var(--text-main)]" data-i18n="about_title">
+          Sobre Mim
+        </h3>
+        <div class="space-y-4 text-[var(--text-muted)] leading-relaxed font-sans text-base">
+          <p data-i18n="about_text_1">
+            Minha jornada em Engenharia de Software na Universidade Católica de Brasília (UCB) é focada em dominar os fundamentos computacionais primários e a capacidade de resolver problemas reais de ponta a ponta.
+          </p>
+          <p data-i18n="about_text_2">
+            Acredito na polivalência e na flexibilidade técnica. Estudo desde o baixo nível com C/C++ (para compreender alocação dinâmica e gerenciamento manual de recursos) até a arquitetura backend moderna baseada em microsserviços e APIs com Java e Spring Boot, além do desenvolvimento de interfaces ricas com React, TypeScript e Tailwind CSS. Estou 100% preparado e motivado para atuar em qualquer área de programação.
+          </p>
+        </div>
+      </div>
 
-            <h3 class="text-2xl font-bold mb-6 text-white flex items-center gap-3">
-                <span class="w-8 h-[1px] bg-indigo-500"></span>
-                Sobre Mim
-            </h3>
-            <div class="space-y-4 text-gray-300 leading-relaxed">
-                <p>
-                    Minha jornada na <strong>Universidade Católica de Brasília</strong> tem sido a fundação da minha carreira. Não me contento apenas em fazer o código funcionar; quero entender o <em>porquê</em> ele funciona.
-                </p>
-                <p>
-                    Essa curiosidade me levou ao estudo de baixo nível com <strong>C e C++</strong>, onde gerencio memória manualmente, e à arquitetura robusta com <strong>Java</strong>. Acredito que um bom engenheiro de software domina os fundamentos, não apenas os frameworks.
-                </p>
-            </div>
+      <!-- Bloco Perfil Rápido -->
+      <div class="lg:col-span-5 flex flex-col gap-6">
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-cyan-400">
+          <span class="text-xs font-mono text-cyan-400 tracking-widest uppercase mb-1" data-i18n="quick_univ">Universidade</span>
+          <h4 class="font-display font-bold text-lg text-[var(--text-main)]">Univ. Católica de Brasília (UCB)</h4>
+          <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_course">Engenharia de Software • Bacharelado</p>
         </div>
 
-        <div id="skills" class="lg:col-span-5 flex flex-col gap-4">
-
-            <div class="glass-card p-6 rounded-2xl h-full flex flex-col justify-center">
-                <h4 class="text-xs font-mono text-indigo-400 mb-4 uppercase tracking-widest border-b border-white/5 pb-2">Stack Front-End</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">HTML5 / CSS3</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Tailwind CSS</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">React</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">TypeScript</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">JavaScript (ES6+)</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Vite</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Figma</span>
-                </div>
-            </div>
-
-            <div class="glass-card p-6 rounded-2xl h-full flex flex-col justify-center">
-                <h4 class="text-xs font-mono text-indigo-400 mb-4 uppercase tracking-widest border-b border-white/5 pb-2">Stack Back-End & Fundamentos</h4>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1.5 bg-indigo-500/10 rounded-md text-sm text-indigo-200 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors cursor-default font-medium">Java</span>
-                    <span class="px-3 py-1.5 bg-indigo-500/10 rounded-md text-sm text-indigo-200 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors cursor-default font-medium">Spring Boot</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default font-medium">C/C++</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Docker & Compose</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">SQL / PostgreSQL</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">APIs RESTful</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Estruturas de Dados</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default font-medium">POO</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default">Lógica & Scrum</span>
-                    <span class="px-3 py-1.5 bg-white/5 rounded-md text-sm text-gray-300 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default font-medium">Git & GitHub</span>
-                </div>
-            </div>
-
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-secondary">
+          <span class="text-xs font-mono text-secondary tracking-widest uppercase mb-1" data-i18n="quick_objective">Objetivo</span>
+          <h4 class="font-display font-bold text-lg text-[var(--text-main)]" data-i18n="quick_objective_title">Estágio em Programação</h4>
+          <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_objective_desc">Disponibilidade imediata para Front-End, Back-End, DevOps ou Sistemas.</p>
         </div>
+
+        <div class="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-center border-l-4 border-l-accent">
+          <span class="text-xs font-mono text-accent tracking-widest uppercase mb-1" data-i18n="quick_location">Localização</span>
+          <h4 class="font-display font-bold text-lg text-[var(--text-main)]">Brasília - DF, Brasil</h4>
+          <p class="text-sm text-[var(--text-muted)]" data-i18n="quick_location_desc">Oportunidades presenciais, híbridas ou remotas.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="projects" class="flex flex-col gap-12">
-        <div class="flex items-end justify-between px-2">
-            <h2 class="text-4xl font-bold text-white">Projetos em Destaque</h2>
-            <span class="hidden md:block text-xs font-mono text-gray-500">Total: 03</span>
-        </div>
+    <!-- --------------------------------------------------
+         SEÇÃO: TODAS AS ÁREAS (BENTO GRID)
+    -------------------------------------------------- -->
+    <section id="areas" class="flex flex-col gap-8">
+      <div class="px-2">
+        <h2 class="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-[var(--text-main)] mb-2" data-i18n="areas_section_title">Áreas de Foco para Estágio</h2>
+        <p class="text-[var(--text-muted)] text-base max-w-2xl" data-i18n="areas_section_subtitle">Domínio e flexibilidade para atuar com excelência em todo o ciclo de desenvolvimento de software.</p>
+      </div>
 
-        <div class="glass-card p-1 rounded-3xl transition-transform hover:scale-[1.005]">
-            <div class="bg-black/40 rounded-[22px] p-8 md:p-12 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-indigo-600/20 transition-colors duration-700"></div>
-
-                <div class="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
-                    <div class="flex-1 space-y-6">
-                        <div class="flex items-center gap-3">
-                            <div class="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-bold rounded-full border border-indigo-500/30 uppercase tracking-wide">
-                                C Language
-                            </div>
-                            <div class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10 uppercase tracking-wide">
-                                CLI Application
-                            </div>
-                        </div>
-
-                        <h3 class="text-4xl font-bold text-white group-hover:text-indigo-200 transition-colors">DEVBank</h3>
-
-                        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-indigo-500/30 pl-4">
-                            Um sistema bancário robusto que vai além do básico. Desenvolvido para demonstrar domínio sobre <span class="text-gray-200">gerenciamento de memória (malloc/free)</span>, <span class="text-gray-200">structs complexas</span> e <span class="text-gray-200">persistência de arquivos binários e texto</span>.
-                        </p>
-
-                        <div class="pt-4">
-                            <a href="https://github.com/guilhermebarcelos06" target="_blank" class="inline-flex items-center gap-3 text-white font-medium group/link">
-                                <span class="border-b border-indigo-500 pb-0.5 group-hover/link:border-white transition-colors">Ver no GitHub</span>
-                                <svg class="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-[45%]">
-                        <div class="rounded-xl bg-[#0F1117] border border-white/10 shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500">
-                            <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
-                                <div class="flex gap-2 mr-4">
-                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                                </div>
-                                <span class="text-xs text-gray-500 font-mono">main.c</span>
-                            </div>
-                            <div class="p-6 font-mono text-xs md:text-sm overflow-x-auto text-gray-400 leading-relaxed">
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">1</span><span><span class="text-purple-400">#include</span> <span class="text-green-400">&lt;stdio.h&gt;</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">2</span><span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">3</span><span><span class="text-purple-400">typedef struct</span> {</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">4</span><span class="pl-4">int <span class="text-blue-400">id</span>;</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">5</span><span class="pl-4">char <span class="text-blue-400">nome</span>[50];</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">6</span><span class="pl-4">double <span class="text-blue-400">saldo</span>;</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">7</span><span>} <span class="text-yellow-400">Conta</span>;</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">8</span><span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">9</span><span><span class="text-purple-400">void</span> <span class="text-yellow-300">salvarDados</span>(Conta *c) {</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">10</span><span class="pl-4">FILE *file = <span class="text-blue-300">fopen</span>(<span class="text-green-400">"db.txt"</span>, <span class="text-green-400">"a"</span>);</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">11</span><span class="pl-4"><span class="text-gray-500">// Lógica de persistência...</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">12</span><span>}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="glass-card p-1 rounded-3xl transition-transform hover:scale-[1.005]">
-            <div class="bg-black/40 rounded-[22px] p-8 md:p-12 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-cyan-600/20 transition-colors duration-700"></div>
-
-                <div class="relative z-10 flex flex-col lg:flex-row-reverse gap-12 items-center">
-                    <div class="flex-1 space-y-6">
-                        <div class="flex items-center gap-3">
-                            <div class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded-full border border-cyan-500/30 uppercase tracking-wide">
-                                AI Assistant
-                            </div>
-                            <div class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10 uppercase tracking-wide">
-                                Python
-                            </div>
-                            <div class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10 uppercase tracking-wide">
-                                Image Gen
-                            </div>
-                        </div>
-
-                        <h3 class="text-4xl font-bold text-white group-hover:text-cyan-200 transition-colors">J.A.R.V.I.S</h3>
-
-                        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-cyan-500/30 pl-4">
-                            Um projeto de assistente de IA avançado com capacidades de <span class="text-gray-200">conversa ao vivo</span>, chat interativo e <span class="text-gray-200">geração de imagem</span>. Integração moderna para criar uma experiência de usuário fluida e inteligente.
-                        </p>
-
-                        <div class="pt-4">
-                            <a href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" class="inline-flex items-center gap-3 text-white font-medium group/link">
-                                <span class="border-b border-cyan-500 pb-0.5 group-hover/link:border-white transition-colors">Ver no GitHub</span>
-                                <svg class="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-[45%]">
-                        <div class="rounded-xl bg-[#0F1117] border border-white/10 shadow-2xl transform -rotate-1 group-hover:rotate-0 transition-transform duration-500">
-                            <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
-                                <div class="flex gap-2 mr-4">
-                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                                </div>
-                                <span class="text-xs text-gray-500 font-mono">assistant.py</span>
-                            </div>
-                            <div class="p-6 font-mono text-xs md:text-sm overflow-x-auto text-gray-400 leading-relaxed">
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">1</span><span><span class="text-purple-400">import</span> openai</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">2</span><span><span class="text-purple-400">import</span> speech_recognition <span class="text-purple-400">as</span> sr</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">3</span><span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">4</span><span><span class="text-purple-400">class</span> <span class="text-yellow-400">Jarvis</span>:</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">5</span><span class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(self):</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">6</span><span class="pl-8">self.engine = <span class="text-green-400">"gpt-4"</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">7</span><span class="pl-8">self.recognizer = sr.Recognizer()</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">8</span><span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">9</span><span class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-400">listen</span>(self):</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">10</span><span class="pl-8"><span class="text-purple-400">with</span> sr.Microphone() <span class="text-purple-400">as</span> source:</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">11</span><span class="pl-12">print(<span class="text-green-400">"Ouvindo..."</span>)</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">12</span><span class="pl-12"><span class="text-gray-500"># Processamento de áudio em tempo real</span></span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PROJETO 3: java-course-platform -->
-        <div class="glass-card p-1 rounded-3xl transition-transform hover:scale-[1.005] mt-12">
-            <div class="bg-black/40 rounded-[22px] p-8 md:p-12 relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-orange-600/20 transition-colors duration-700"></div>
-
-                <div class="relative z-10 flex flex-col lg:flex-row gap-12 items-center">
-                    <div class="flex-1 space-y-6">
-                        <div class="flex items-center gap-3">
-                            <div class="px-3 py-1 bg-orange-500/20 text-orange-300 text-xs font-bold rounded-full border border-orange-500/30 uppercase tracking-wide">
-                                Java / Spring Boot
-                            </div>
-                            <div class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10 uppercase tracking-wide">
-                                APIs RESTful
-                            </div>
-                            <div class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10 uppercase tracking-wide">
-                                Docker & DevOps
-                            </div>
-                        </div>
-
-                        <h3 class="text-4xl font-bold text-white group-hover:text-orange-200 transition-colors">java-course-platform</h3>
-
-                        <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-orange-500/30 pl-4">
-                            API RESTful estruturada para controle acadêmico, gerenciamento e matrícula de estudantes em plataformas de cursos online. Utiliza o ecossistema Spring Boot com banco de dados <span class="text-gray-200">PostgreSQL</span> e provisionamento total automatizado com <span class="text-gray-200">Docker e Docker Compose</span>.
-                        </p>
-
-                        <div class="pt-4">
-                            <a href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" class="inline-flex items-center gap-3 text-white font-medium group/link">
-                                <span class="border-b border-orange-500 pb-0.5 group-hover/link:border-white transition-colors">Ver no GitHub</span>
-                                <svg class="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-[45%]">
-                        <div class="rounded-xl bg-[#0F1117] border border-white/10 shadow-2xl transform rotate-1 group-hover:rotate-0 transition-transform duration-500">
-                            <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
-                                <div class="flex gap-2 mr-4">
-                                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                                </div>
-                                <span class="text-xs text-gray-500 font-mono">CourseController.java</span>
-                            </div>
-                            <div class="p-6 font-mono text-xs md:text-sm overflow-x-auto text-gray-400 leading-relaxed">
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">1</span><span><span class="text-purple-400">@RestController</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">2</span><span><span class="text-purple-400">@RequestMapping</span>(<span class="text-green-400">"/api/courses"</span>)</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">3</span><span><span class="text-purple-400">public class</span> <span class="text-yellow-400">CourseController</span> {</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">4</span><span class="pl-4"><span class="text-purple-400">@Autowired</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">5</span><span class="pl-4"><span class="text-purple-400">private</span> CourseService <span class="text-blue-400">courseService</span>;</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">6</span><span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">7</span><span class="pl-4"><span class="text-purple-400">@PostMapping</span>(<span class="text-green-400">"/{id}/enroll"</span>)</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">8</span><span class="pl-4"><span class="text-purple-400">public</span> ResponseEntity&lt;EnrollDTO&gt; <span class="text-yellow-300">enrollStudent</span>(</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">9</span><span class="pl-8"><span class="text-purple-400">@PathVariable</span> Long <span class="text-blue-300">id</span>, <span class="text-purple-400">@RequestBody</span> StudentDTO <span class="text-blue-300">dto</span></span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">10</span><span class="pl-4">) {</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">11</span><span class="pl-8"><span class="text-purple-400">return</span> ResponseEntity.<span class="text-blue-300">ok</span>(courseService.<span class="text-blue-300">enroll</span>(id, dto));</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">12</span><span class="pl-4">}</span></div>
-                                <div class="flex mb-1"><span class="text-gray-600 select-none w-6 text-right mr-4">13</span><span>}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <footer id="contact" class="border-t border-white/5 pt-16 pb-8">
-        <div class="glass-card rounded-2xl p-8 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+      <!-- Bento Grid das Áreas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- CARD 1: Back-End (Span 2) -->
+        <div class="lg:col-span-2 glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-orange-400/30">
+          <div class="absolute -right-16 -top-16 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition-all"></div>
+          <div class="flex flex-col h-full justify-between gap-6">
             <div>
-                <h2 class="text-3xl font-bold text-white mb-2">Vamos construir algo?</h2>
-                <p class="text-gray-400">Aberto para estágios e projetos freelance.</p>
+              <div class="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+              </div>
+              <h3 class="text-2xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_backend_title">Desenvolvimento Back-End</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_backend_desc">Construção de APIs escaláveis, arquitetura em camadas e integração resiliente com bancos de dados relacionais.</p>
             </div>
-            <div class="flex flex-col items-center md:items-end gap-3">
-                <a href="mailto:guilhermebarcelos2006@gmail.com" class="text-lg md:text-2xl text-indigo-400 hover:text-white font-bold transition-colors flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
-                    guilhermebarcelos2006@gmail.com
-                </a>
-                <div class="flex gap-4 mt-2">
-                    <a href="https://www.linkedin.com/in/guilhermebarcelo/" class="text-gray-500 hover:text-white transition-colors text-sm">LinkedIn</a>
-                    <a href="https://github.com/guilhermebarcelos06" class="text-gray-500 hover:text-white transition-colors text-sm">GitHub</a>
-                    <a href="https://www.instagram.com/_guilherrmsilvetr15/" class="text-gray-500 hover:text-white transition-colors text-sm">Instagram</a>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Java</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Spring Boot</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">PostgreSQL</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">APIs RESTful</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Hibernate</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: Front-End -->
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-cyan-400/30">
+          <div class="absolute -right-16 -top-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+          <div class="flex flex-col h-full justify-between gap-6">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              </div>
+              <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_frontend_title">Desenvolvimento Front-End</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_frontend_desc">Criação de interfaces web pixel-perfect, design responsivo e gerenciamento de estado de alto desempenho.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">React</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Tailwind CSS</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Systems & Low Level -->
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-purple-400/30">
+          <div class="absolute -right-16 -top-16 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+          <div class="flex flex-col h-full justify-between gap-6">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 9.172V5L8 4z"></path></svg>
+              </div>
+              <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_systems_title">Sistemas & Baixo Nível</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_systems_desc">Otimização de algoritmos complexos, estruturas de dados e controle estrito de memória física com C++.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">C / C++</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Ponteiros</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Estrutura de Dados</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: DevOps & Containers -->
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-green-400/30">
+          <div class="absolute -right-16 -top-16 w-32 h-32 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
+          <div class="flex flex-col h-full justify-between gap-6">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-green-500/10 text-green-400 flex items-center justify-center mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+              </div>
+              <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_devops_title">DevOps & Containers</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_devops_desc">Conteinerização total de ecossistemas locais, automação de setups e orquestração ágil com Docker.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Docker Compose</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Git & GitHub</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: AI & Automations -->
+        <div class="glass-card p-8 rounded-3xl relative overflow-hidden group border-b-2 border-b-yellow-400/30">
+          <div class="absolute -right-16 -top-16 w-32 h-32 bg-yellow-500/10 rounded-full blur-2xl group-hover:bg-yellow-500/20 transition-all"></div>
+          <div class="flex flex-col h-full justify-between gap-6">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center mb-6">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 9.172V5L8 4z"></path></svg>
+              </div>
+              <h3 class="text-xl font-display font-bold text-[var(--text-main)] mb-3" data-i18n="area_ai_title">Integração de IA</h3>
+              <p class="text-[var(--text-muted)] text-sm leading-relaxed" data-i18n="area_ai_desc">Implementação de assistentes de voz inteligentes, Speech APIs e automações orientadas a inteligência artificial.</p>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">Web Speech API</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">AI Integration</span>
+              <span class="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-xs font-semibold text-[var(--text-muted)]">TypeScript</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------------------------------------------
+         PROJETOS SEÇÃO
+    -------------------------------------------------- -->
+    <section id="projects" class="flex flex-col gap-10">
+      <div class="flex items-end justify-between px-2">
+        <h2 class="text-3xl md:text-4xl font-display font-extrabold tracking-tight text-[var(--text-main)]" data-i18n="projects_title">Projetos em Destaque</h2>
+      </div>
+
+      <!-- PROJETO 1: J.A.R.V.I.S -->
+      <div class="glass-card p-1 rounded-3xl overflow-hidden">
+        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-cyan-600/20 transition-colors duration-700"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row gap-10 items-center">
+            <div class="flex-1 space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="px-3 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded-full border border-cyan-500/30 uppercase tracking-wide" data-i18n="project1_badge">
+                  TypeScript + AI
                 </div>
+              </div>
+
+              <h3 class="text-3xl font-display font-extrabold text-[var(--text-main)]">J.A.R.V.I.S</h3>
+              <p class="text-[var(--text-muted)] text-base leading-relaxed pl-4 border-l-2 border-cyan-500/30" data-i18n="project1_desc">
+                Assistente inteligente com comandos vocais dinâmicos e controle de mídias integrado.
+              </p>
+              
+              <ul class="text-[var(--text-muted)] text-sm space-y-2 list-disc list-inside">
+                <li data-i18n="project1_bullet1">Desenvolveu SPA responsiva em React, TypeScript e Tailwind CSS.</li>
+                <li data-i18n="project1_bullet2">Integrou Web Speech API para controle de voz hands-free com 98% de precisão.</li>
+                <li data-i18n="project1_bullet3">Tipagem estrita com TypeScript que reduziu bugs em runtime em 95%.</li>
+              </ul>
+
+              <div class="pt-2">
+                <a href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" class="inline-flex items-center gap-3 text-cyan-400 font-bold hover:text-white transition-all group/link">
+                  <span class="border-b border-cyan-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                  <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+              </div>
             </div>
+
+            <!-- Editor de Código Simulado -->
+            <div class="w-full lg:w-[45%]">
+              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
+                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+                  <div class="flex gap-1.5 mr-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <span class="text-xs text-gray-500 font-mono">assistant.ts</span>
+                </div>
+                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-cyan-400">const</span> recognizer = <span class="text-purple-400">new</span> <span class="text-yellow-400">webkitSpeechRecognition</span>();</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span>recognizer.continuous = <span class="text-orange-400">true</span>;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span>recognizer.onresult = (<span class="text-orange-300">event</span>) => {</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="text-cyan-400">const</span> cmd = event.results[idx][0].transcript;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-4">executeVoiceAction(cmd);</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>};</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="text-center text-gray-600 text-xs mt-12 font-mono">
-            &copy; 2025 Guilherme Silvestre Barcelos. Design Liquid Glass.
+      </div>
+
+      <!-- PROJETO 2: java-course-platform -->
+      <div class="glass-card p-1 rounded-3xl overflow-hidden">
+        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-orange-600/20 transition-colors duration-700"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row-reverse gap-10 items-center">
+            <div class="flex-1 space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="px-3 py-1 bg-orange-500/20 text-orange-300 text-xs font-bold rounded-full border border-orange-500/30 uppercase tracking-wide" data-i18n="project2_badge">
+                  Java + DevOps
+                </div>
+              </div>
+
+              <h3 class="text-3xl font-display font-extrabold text-[var(--text-main)]">java-course-platform</h3>
+              <p class="text-[var(--text-muted)] text-base leading-relaxed pl-4 border-l-2 border-orange-500/30" data-i18n="project2_desc">
+                Backend de controle acadêmico e matrículas conteinerizado de alta escalabilidade.
+              </p>
+
+              <ul class="text-[var(--text-muted)] text-sm space-y-2 list-disc list-inside">
+                <li data-i18n="project2_bullet1">Modelagem de APIs RESTful usando Java e Spring Boot (Data JPA, Hibernate).</li>
+                <li data-i18n="project2_bullet2">Conteinerização completa com Docker e Docker Compose, otimizando o setup em 90%.</li>
+                <li data-i18n="project2_bullet3">Integração segura com banco de dados PostgreSQL e consultas otimizadas.</li>
+              </ul>
+
+              <div class="pt-2">
+                <a href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" class="inline-flex items-center gap-3 text-orange-400 font-bold hover:text-white transition-all group/link">
+                  <span class="border-b border-orange-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                  <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Editor de Código Simulado -->
+            <div class="w-full lg:w-[45%]">
+              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
+                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+                  <div class="flex gap-1.5 mr-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <span class="text-xs text-gray-500 font-mono">CourseController.java</span>
+                </div>
+                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-purple-400">@RestController</span></span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span><span class="text-purple-400">@RequestMapping</span>(<span class="text-green-400">"/api/courses"</span>)</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span><span class="text-purple-400">public class</span> <span class="text-yellow-400">CourseController</span> {</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-4"><span class="text-purple-400">@Autowired</span> CourseService svc;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-4"><span class="text-purple-400">@PostMapping</span> enroll();</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>}</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- PROJETO 3: DEVBank -->
+      <div class="glass-card p-1 rounded-3xl overflow-hidden">
+        <div class="bg-black/10 rounded-[22px] p-8 md:p-10 relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none group-hover:bg-indigo-600/20 transition-colors duration-700"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row gap-10 items-center">
+            <div class="flex-1 space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-bold rounded-full border border-indigo-500/30 uppercase tracking-wide" data-i18n="project3_badge">
+                  C++ + Algoritmos
+                </div>
+              </div>
+
+              <h3 class="text-3xl font-display font-extrabold text-[var(--text-main)]">DEVBank</h3>
+              <p class="text-[var(--text-muted)] text-base leading-relaxed pl-4 border-l-2 border-indigo-500/30" data-i18n="project3_desc">
+                Simulador financeiro estruturado offline de alta velocidade.
+              </p>
+
+              <ul class="text-[var(--text-muted)] text-sm space-y-2 list-disc list-inside">
+                <li data-i18n="project3_bullet1">Desenvolvimento estruturado em C++ aplicando conceitos sólidos de POO.</li>
+                <li data-i18n="project3_bullet2">Alocação dinâmica de memória e manipulação de ponteiros para otimizar a latência.</li>
+                <li data-i18n="project3_bullet3">Persistência local de registros usando manipulação de arquivos físicos binários.</li>
+              </ul>
+
+              <div class="pt-2">
+                <a href="https://github.com/guilhermebarcelos06/DEVBank" target="_blank" class="inline-flex items-center gap-3 text-indigo-400 font-bold hover:text-white transition-all group/link">
+                  <span class="border-b border-indigo-500/50 pb-0.5 group-hover/link:border-white transition-colors" data-i18n="project_view_github">Ver no GitHub</span>
+                  <svg class="w-5 h-5 transform group-hover/link:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Editor de Código Simulado -->
+            <div class="w-full lg:w-[45%]">
+              <div class="rounded-xl bg-[#090b11] border border-white/5 shadow-2xl">
+                <div class="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
+                  <div class="flex gap-1.5 mr-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <span class="text-xs text-gray-500 font-mono">bank.cpp</span>
+                </div>
+                <div class="p-5 font-mono text-xs overflow-x-auto text-gray-400 leading-relaxed">
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">1</span><span><span class="text-purple-400">#include</span> &lt;iostream&gt;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">2</span><span><span class="text-purple-400">class</span> <span class="text-yellow-400">Conta</span> {</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">3</span><span class="pl-4">public:</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">4</span><span class="pl-8"><span class="text-cyan-400">int</span> id;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">5</span><span class="pl-8"><span class="text-cyan-400">double</span> saldo;</span></div>
+                  <div class="flex"><span class="text-gray-600 w-5 mr-3 select-none">6</span><span>};</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- --------------------------------------------------
+         FOOTER & CONTATO
+    -------------------------------------------------- -->
+    <footer id="contact" class="border-t border-white/5 pt-16">
+      <div class="glass-card rounded-3xl p-8 md:p-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+        <div>
+          <h2 class="text-3xl font-display font-extrabold text-[var(--text-main)] mb-2" data-i18n="contact_title">Vamos construir algo juntos?</h2>
+          <p class="text-[var(--text-muted)] text-base" data-i18n="contact_subtitle">Aberto a oportunidades de estágio e colaborações em qualquer área de desenvolvimento de software.</p>
+        </div>
+        <div class="flex flex-col items-center md:items-end gap-3">
+          <a href="mailto:guilhermebarcelos2006@gmail.com" class="text-xl md:text-2xl text-cyan-400 hover:text-white font-extrabold transition-colors flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse"></span>
+            guilhermebarcelos2006@gmail.com
+          </a>
+          <div class="flex gap-4 mt-2">
+            <a href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-400 transition-all text-sm font-medium">LinkedIn</a>
+            <a href="https://github.com/guilhermebarcelos06" target="_blank" class="text-[var(--text-muted)] hover:text-cyan-400 transition-all text-sm font-medium">GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-gray-500 text-xs mt-12 font-mono pb-4">
+        &copy; 2026 Guilherme Silvestre Barcelos. Design Liquid Glass Core.
+      </div>
     </footer>
 
-</main>
+  </main>
 
-<script>
-    const root = document.documentElement;
+  <!-- --------------------------------------------------
+       SCRIPTS DE INTERAÇÃO (IDIOMA & MODO CLARO)
+  -------------------------------------------------- -->
+  <script>
+    // Dicionário de Traduções Completas
+    const translations = {
+      pt: {
+        nav_about: "Sobre Mim",
+        nav_areas: "Áreas de Foco",
+        nav_projects: "Projetos",
+        hero_badge: "🟢 Buscando Estágio em Desenvolvimento de Software",
+        hero_title: "Transformando lógica em soluções de impacto",
+        hero_subtitle: "Estudante de Engenharia de Software na UCB focado em construir aplicações de alta performance e bases computacionais sólidas em qualquer área.",
+        hero_cta: "Entre em contato",
+        hero_cv: "📄 Baixar Currículo em PDF",
+        about_title: "Sobre Mim",
+        about_text_1: "Minha jornada em Engenharia de Software na Universidade Católica de Brasília (UCB) é focada em dominar os fundamentos computacionais primários e a capacidade de resolver problemas reais de ponta a ponta.",
+        about_text_2: "Acredito na polivalência e na flexibilidade técnica. Estudo desde o baixo nível com C/C++ (para compreender alocação dinâmica e gerenciamento manual de recursos) até a arquitetura backend moderna baseada em microsserviços e APIs com Java e Spring Boot, além do desenvolvimento de interfaces ricas com React, TypeScript e Tailwind CSS. Estou 100% preparado e motivado para atuar em qualquer área de programação.",
+        quick_univ: "Universidade",
+        quick_course: "Engenharia de Software • Bacharelado",
+        quick_objective: "Objetivo",
+        quick_objective_title: "Estágio em Programação",
+        quick_objective_desc: "Disponibilidade imediata para Front-End, Back-End, DevOps ou Sistemas.",
+        quick_location: "Localização",
+        quick_location_desc: "Oportunidades presenciais, híbridas ou remotas.",
+        areas_section_title: "Áreas de Foco para Estágio",
+        areas_section_subtitle: "Domínio e flexibilidade para atuar com excelência em todo o ciclo de desenvolvimento de software.",
+        area_backend_title: "Desenvolvimento Back-End",
+        area_backend_desc: "Construção de APIs escaláveis, arquitetura em camadas e integração resiliente com bancos de dados relacionais.",
+        area_frontend_title: "Desenvolvimento Front-End",
+        area_frontend_desc: "Criação de interfaces web pixel-perfect, design responsivo e gerenciamento de estado de alto desempenho.",
+        area_systems_title: "Sistemas & Baixo Nível",
+        area_systems_desc: "Otimização de algoritmos complexos, estruturas de dados e controle estrito de memória física com C++.",
+        area_devops_title: "DevOps & Containers",
+        area_devops_desc: "Conteinerização total de ecossistemas locais, automação de setups e orquestração ágil com Docker.",
+        area_ai_title: "Integração de IA",
+        area_ai_desc: "Implementação de assistentes de voz inteligentes, Speech APIs e automações orientadas a inteligência artificial.",
+        projects_title: "Projetos em Destaque",
+        project_view_github: "Ver no GitHub",
+        project1_badge: "TypeScript + IA",
+        project1_desc: "Assistente inteligente com comandos vocais dinâmicos e controle de mídias integrado.",
+        project1_bullet1: "Desenvolveu SPA responsiva em React, TypeScript e Tailwind CSS.",
+        project1_bullet2: "Integrou Web Speech API para controle de voz hands-free com 98% de precisão.",
+        project1_bullet3: "Tipagem estrita com TypeScript que reduziu bugs em runtime em 95%.",
+        project2_badge: "Java + DevOps",
+        project2_desc: "Backend de controle acadêmico e matrículas conteinerizado de alta escalabilidade.",
+        project2_bullet1: "Modelagem de APIs RESTful usando Java e Spring Boot (Data JPA, Hibernate).",
+        project2_bullet2: "Conteinerização completa com Docker e Docker Compose, otimizando o setup em 90%.",
+        project2_bullet3: "Integração segura com banco de dados PostgreSQL e consultas otimizadas.",
+        project3_badge: "C++ + Algoritmos",
+        project3_desc: "Simulador financeiro estruturado offline de alta velocidade.",
+        project3_bullet1: "Desenvolvimento estruturado em C++ aplicando conceitos sólidos de POO.",
+        project3_bullet2: "Alocação dinâmica de memória e manipulação de ponteiros para otimizar a latência.",
+        project3_bullet3: "Persistência local de registros usando manipulação de arquivos físicos binários.",
+        contact_title: "Vamos construir algo juntos?",
+        contact_subtitle: "Aberto a oportunidades de estágio e colaborações em qualquer área de desenvolvimento de software.",
+        lang_btn: "EN",
+      },
+      en: {
+        nav_about: "About Me",
+        nav_areas: "Focus Areas",
+        nav_projects: "Projects",
+        hero_badge: "🟢 Seeking Software Development Internship",
+        hero_title: "Turning logic into high-impact digital solutions",
+        hero_subtitle: "Software Engineering student at UCB focused on building high-performance applications and mastering computational foundations in any area.",
+        hero_cta: "Get in touch",
+        hero_cv: "📄 Download PDF Resume",
+        about_title: "About Me",
+        about_text_1: "My journey in Software Engineering at the Catholic University of Brasília (UCB) is centered on mastering computer science fundamentals and the ability to solve real-world problems end-to-end.",
+        about_text_2: "I believe in polyvalence and technical flexibility. I study from low-level systems with C/C++ (to understand dynamic allocation and manual resource management) to modern backend architecture based on microservices and APIs with Java and Spring Boot, alongside developing rich interfaces with React, TypeScript, and Tailwind CSS. I am 100% prepared and motivated to work in any programming area.",
+        quick_univ: "University",
+        quick_course: "Software Engineering • Bachelor's",
+        quick_objective: "Objective",
+        quick_objective_title: "Programming Internship",
+        quick_objective_desc: "Immediate availability for Front-End, Back-End, DevOps, or Systems.",
+        quick_location: "Location",
+        quick_location_desc: "On-site, hybrid, or remote opportunities.",
+        areas_section_title: "Internship Focus Areas",
+        areas_section_subtitle: "Technical mastery and flexibility to deliver excellence across the entire software development lifecycle.",
+        area_backend_title: "Back-End Development",
+        area_backend_desc: "Building scalable RESTful APIs, layered architectures, and resilient relational database integrations.",
+        area_frontend_title: "Front-End Development",
+        area_frontend_desc: "Creating pixel-perfect web interfaces, responsive layouts, and highly performant state management.",
+        area_systems_title: "Systems & Low-Level",
+        area_systems_desc: "Optimizing complex algorithms, data structures, and strict physical memory control with C++.",
+        area_devops_title: "DevOps & Containers",
+        area_devops_desc: "Complete containerization of local ecosystems, automated setup provisioning, and orchestration with Docker.",
+        area_ai_title: "AI Integration",
+        area_ai_desc: "Implementing smart voice assistants, Speech recognition APIs, and artificial intelligence-driven automations.",
+        projects_title: "Featured Projects",
+        project_view_github: "View on GitHub",
+        project1_badge: "TypeScript + AI",
+        project1_desc: "AI-integrated assistant with dynamic voice recognition and media controls.",
+        project1_bullet1: "Developed a responsive SPA using React, TypeScript, and Tailwind CSS.",
+        project1_bullet2: "Integrated Web Speech API for hands-free voice control with 98% accuracy.",
+        project1_bullet3: "Strict TypeScript typing that reduced runtime errors by 95%.",
+        project2_badge: "Java + DevOps",
+        project2_desc: "Containerized and highly scalable academic control and enrollment backend.",
+        project2_bullet1: "Modeled RESTful APIs using Java and Spring Boot (Data JPA, Hibernate).",
+        project2_bullet2: "Complete containerization with Docker and Compose, optimizing setup time by 90%.",
+        project2_bullet3: "Secure integration with PostgreSQL database and query execution planning.",
+        project3_badge: "C++ + Algorithms",
+        project3_desc: "High-performance offline terminal banking simulator.",
+        project3_bullet1: "Structured C++ development applying robust OOP architecture.",
+        project3_bullet2: "Dynamic memory allocation and pointer manipulation to optimize performance.",
+        project3_bullet3: "Local data persistence utilizing binary and plain text physical file handling.",
+        contact_title: "Let's build something together!",
+        contact_subtitle: "Open to internship opportunities and collaborations in any software development field.",
+        lang_btn: "PT",
+      }
+    };
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
+    let currentLang = 'pt';
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    // Função de Alternância de Idioma
+    function toggleLanguage() {
+      currentLang = currentLang === 'pt' ? 'en' : 'pt';
+      document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : 'en';
+      
+      // Traduz os textos marcados com data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          elem.innerHTML = translations[currentLang][key];
+        }
+      });
 
-        root.style.setProperty('--x', mouseX + 'px');
-        root.style.setProperty('--y', mouseY + 'px');
-    });
+      // Atualiza o texto do botão de idioma
+      document.getElementById('langBtn').textContent = translations[currentLang]['lang_btn'];
+    }
 
-    const cards = document.querySelectorAll('.glass-card');
+    // Controle de Tema (Modo Escuro / Claro)
+    function toggleTheme() {
+      const body = document.body;
+      const sunIcon = document.getElementById('sunIcon');
+      const moonIcon = document.getElementById('moonIcon');
 
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-        });
+      body.classList.toggle('light-theme');
+      document.documentElement.classList.toggle('dark');
 
-        card.addEventListener('mouseleave', () => {
-        });
-    });
-</script>
+      if (body.classList.contains('light-theme')) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
+  </script>
 </body>
 </html>

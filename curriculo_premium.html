@@ -3,1032 +3,404 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guilherme Silvestre Barcelos - Currículo Premium</title>
+  <title>Guilherme Silvestre Barcelos - Currículo</title>
   
-  <!-- Fontes Premium -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* --------------------------------------------------
-       SISTEMA DE DESIGN (CSS VARIÁVEIS)
-    -------------------------------------------------- */
     :root {
-      --bg-gradient: radial-gradient(circle at 50% 50%, #060913 0%, #020308 100%);
-      --card-bg: rgba(10, 15, 30, 0.5);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-hover: rgba(0, 242, 254, 0.3);
-      --primary: #00f2fe;
-      --secondary: #4facfe;
-      --accent: #a18cd1;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-highlight: #38bdf8;
-      --shadow-color: rgba(0, 242, 254, 0.15);
-      --glow-light: 0 0 25px var(--shadow-color);
-      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      
-      /* Variáveis de Adaptação de Cores */
-      --name-gradient: linear-gradient(135deg, #ffffff 30%, #a1a8c0 100%);
-      --skill-pill-bg: rgba(255, 255, 255, 0.04);
-      --card-inner-bg: rgba(255, 255, 255, 0.02);
-      --lang-bar-bg: rgba(255, 255, 255, 0.08);
-      --bg-solid: #040612;
-      --avatar-border: #0d1224;
+      --bg: #ffffff;
+      --text: #000000;
+      --text-muted: #333333;
+      --primary: #000000;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-
-    .light-theme {
-      --bg-gradient: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.82);
-      --card-border: rgba(15, 23, 42, 0.12);
-      --card-border-hover: rgba(14, 165, 233, 0.5);
-      --primary: #0284c7;
-      --secondary: #0ea5e9;
-      --accent: #7c3aed;
-      --text-main: #0f172a;
-      --text-muted: #334155;
-      --text-highlight: #0284c7;
-      --shadow-color: rgba(14, 165, 233, 0.12);
-      --glow-light: 0 0 25px var(--shadow-color);
-      
-      /* Variáveis de Adaptação de Cores */
-      --name-gradient: linear-gradient(135deg, #0f172a 30%, #334155 100%);
-      --skill-pill-bg: rgba(15, 23, 42, 0.04);
-      --card-inner-bg: rgba(15, 23, 42, 0.02);
-      --lang-bar-bg: rgba(15, 23, 42, 0.08);
-      --bg-solid: #f8fafc;
-      --avatar-border: #f8fafc;
-    }
-
-    /* --------------------------------------------------
-       BACKGROUND CANVAS STYLING & ACCELERATION
-    -------------------------------------------------- */
-    #bgCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -10;
-      pointer-events: none;
-      display: block;
-      transform: translate3d(0, 0, 0); /* Força aceleração por GPU */
-      backface-visibility: hidden;
-    }
-
-    /* --------------------------------------------------
-       RESET E ESTILOS GERAIS
-    -------------------------------------------------- */
+    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                  border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  color 0.3s ease;
-    }
-    
-    html {
-      background: var(--bg-gradient);
-      min-height: 100vh;
     }
     
     body {
-      font-family: 'Inter', sans-serif;
-      background: transparent;
-      color: var(--text-main);
-      min-height: 100vh;
-      line-height: 1.6;
-      padding: 3rem 1.5rem;
+      font-family: var(--font-family);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 2.5rem 3rem;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      overflow-x: hidden;
     }
-
-    strong {
-      color: var(--text-main);
-      font-weight: 700;
-    }
-
-    .container {
+    
+    .resume-container {
       width: 100%;
-      max-width: 1100px;
+      max-width: 720px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 2.5rem;
-      position: relative;
+      background: #ffffff;
     }
-
-    /* --------------------------------------------------
-       BOTÃO FLUTUANTE DE IMPRESSÃO
-    -------------------------------------------------- */
+    
+    /* CABEÇALHO */
+    .header {
+      margin-bottom: 1.8rem;
+    }
+    
+    .name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.2rem;
+    }
+    
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+    
+    .contact-info a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+    
+    /* SEÇÕES */
+    .section {
+      margin-bottom: 1.8rem;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+      text-transform: capitalize;
+    }
+    
+    .profile-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: justify;
+    }
+    
+    /* LISTAS E BULLETS */
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    
+    .bullet-list li {
+      position: relative;
+      padding-left: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+    
+    /* ITENS DE EXPERIÊNCIA/PROJETOS */
+    .item-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    
+    .item-header {
+      margin-bottom: 0.2rem;
+    }
+    
+    .item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .item-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+    
+    .item-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    
+    .item-bullets li {
+      position: relative;
+      padding-left: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    .item-bullets li::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+    
+    /* ACADÊMICO E OUTROS */
+    .edu-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .edu-item {
+      font-size: 0.9rem;
+    }
+    
+    .edu-title {
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .edu-details {
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+    
+    /* BOTÃO FLUTUANTE PARA IMPRESSÃO */
     .action-panel {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
       z-index: 100;
-      display: flex;
-      gap: 1rem;
     }
-
-    .btn-premium {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-      color: #040612;
-      border: none;
-      padding: 0.9rem 1.8rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
+ 
+    .btn-print {
+      font-family: var(--font-family);
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid #000000;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
       cursor: pointer;
-      box-shadow: 0 8px 30px rgba(0, 242, 254, 0.35);
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: var(--transition-smooth);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
     }
-
-    .btn-premium:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 242, 254, 0.5);
-    }
-
-    .btn-premium svg {
-      transition: transform 0.3s ease;
+ 
+    .btn-print:hover {
+      background: #333333;
+      border-color: #333333;
     }
     
-    .btn-premium:hover svg {
-      transform: scale(1.15);
-    }
-
-    /* --------------------------------------------------
-       SIDEBAR ESQUERDA (PERFIL E CONTATOS)
-    -------------------------------------------------- */
-    .sidebar {
-      display: flex;
-      flex-column: 1;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .profile-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      transition: var(--transition-smooth);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .profile-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .profile-card:hover {
-      border-color: var(--card-border-hover);
-      box-shadow: var(--glow-light);
-      transform: translateY(-5px);
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 140px;
-      height: 140px;
-      margin: 0 auto 1.5rem;
-    }
-
-    .avatar-glow {
-      position: absolute;
-      top: -4px;
-      left: -4px;
-      right: -4px;
-      bottom: -4px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      border-radius: 50%;
-      z-index: 1;
-      opacity: 0.8;
-      filter: blur(4px);
-      animation: rotateGlow 8s linear infinite;
-    }
-
-    .avatar {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 4px solid var(--avatar-border);
-      object-fit: cover;
-      z-index: 2;
-    }
-
-    @keyframes rotateGlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .name {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
-      background: var(--name-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .tagline {
-      font-size: 0.95rem;
-      color: var(--primary);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-list {
-      list-style: none;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border-top: 1px solid var(--card-border);
-      padding-top: 1.5rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      text-decoration: none;
-      transition: var(--transition-smooth);
-    }
-
-    .contact-item:hover {
-      color: var(--text-main);
-    }
-
-    .contact-item svg {
-      width: 18px;
-      height: 18px;
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-
-    /* CARD DE HABILIDADES */
-    .skills-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 24px;
-      padding: 2rem;
-      transition: var(--transition-smooth);
-    }
-
-    .skills-card:hover {
-      border-color: var(--card-border-hover);
-      box-shadow: var(--glow-light);
-    }
-
-    .section-title-small {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--text-main);
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 0.5rem;
-    }
-
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .skill-pill {
-      background: var(--skill-pill-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 0.4rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      transition: var(--transition-smooth);
-      cursor: default;
-    }
-
-    .skill-pill:hover {
-      background: rgba(0, 242, 254, 0.08);
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .education-item {
-      margin-bottom: 1rem;
-    }
-
-    .education-school {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text-main);
-    }
-
-    .education-degree {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .education-year {
-      font-size: 0.8rem;
-      color: var(--primary);
-      font-weight: 600;
-      margin-top: 0.2rem;
-    }
-
-    /* --------------------------------------------------
-       CONTEÚDO PRINCIPAL (DIREITO)
-    -------------------------------------------------- */
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .content-section {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 24px;
-      padding: 2.5rem;
-      transition: var(--transition-smooth);
-    }
-
-    .content-section:hover {
-      border-color: var(--card-border-hover);
-    }
-
-    .section-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      color: var(--text-main);
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 45px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 2px;
-    }
-
-    .about-text {
-      color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-
-    /* PROJETOS GRID */
-    .projects-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 2.2rem;
-    }
-
-    .project-card {
-      position: relative;
-      padding-left: 1.8rem;
-      border-left: 2px solid var(--card-border);
-      transition: var(--transition-smooth);
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      left: -6px;
-      top: 6px;
-      width: 10px;
-      height: 10px;
-      background-color: var(--primary);
-      border: 2px solid var(--bg-solid);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--primary);
-      transition: var(--transition-smooth);
-    }
-
-    .project-card:hover {
-      border-left-color: var(--primary);
-    }
-
-    .project-card:hover::before {
-      background-color: #ffffff;
-      box-shadow: 0 0 15px #ffffff;
-      transform: scale(1.3);
-    }
-
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.6rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .project-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .project-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: var(--transition-smooth);
-    }
-
-    .project-link:hover {
-      color: var(--primary);
-    }
-
-    .project-badge {
-      font-family: 'Outfit', sans-serif;
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.2);
-      color: var(--primary);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 30px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .project-description {
-      color: var(--text-highlight);
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-    }
-
-    .project-bullets {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .project-bullets li {
-      position: relative;
-      padding-left: 1.2rem;
-      font-size: 0.92rem;
-      color: var(--text-muted);
-    }
-
-    .project-bullets li::before {
-      content: '⚡';
-      position: absolute;
-      left: 0;
-      top: 1px;
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-
-    .project-bullets strong {
-      color: var(--text-main);
-    }
-
-    /* IDIOMAS */
-    .languages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .lang-item {
-      background: var(--card-inner-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .lang-name {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .lang-level {
-      color: var(--primary);
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .lang-bar {
-      width: 100%;
-      height: 4px;
-      background: var(--lang-bar-bg);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 0.3rem;
-    }
-
-    .lang-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-      border-radius: 10px;
-    }
-
-    /* --------------------------------------------------
-       RESPONSIVIDADE (MOBILE E TABLET)
-    -------------------------------------------------- */
-    @media (max-width: 850px) {
-      body {
-        padding: 1.5rem 1rem;
-      }
-      .container {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .action-panel {
-        bottom: 1rem;
-        right: 1rem;
-      }
-      .btn-premium {
-        padding: 0.75rem 1.4rem;
-        font-size: 0.85rem;
-      }
-    }
-
-    /* --------------------------------------------------
-       ESTILOS DE IMPRESSÃO (PDF / IMPRESSORA)
-       ESSES ESTILOS TORNAM O CURRÍCULO 100% ATS-FRIENDLY
-    -------------------------------------------------- */
+    /* IMPRESSÃO */
     @media print {
       body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        font-size: 8.5pt !important;
-        line-height: 1.25 !important;
-        display: block !important;
+        padding: 0;
+        margin: 0;
+        background-color: #ffffff;
       }
-      .container {
-        display: grid !important;
-        grid-template-columns: 220px 1fr !important;
-        gap: 1.2rem !important;
-        margin: 0 !important;
-        padding: 0.3cm 0.4cm !important;
-        width: 100% !important;
+      .resume-container {
+        max-width: 100%;
       }
-      .sidebar {
-        width: 220px !important;
-      }
-      #bgCanvas, .action-panel, .avatar-wrapper, .avatar-glow {
+      .action-panel {
         display: none !important;
-      }
-      .profile-card, .skills-card, .content-section, .lang-item {
-        background: none !important;
-        border: none !important;
-        padding: 0 !important;
-        margin-bottom: 0.4rem !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        transform: none !important;
-        text-align: left !important;
-      }
-      .profile-card {
-        border-bottom: 1.5px solid #000000 !important;
-        padding-bottom: 0.4rem !important;
       }
       .name {
-        font-size: 16pt !important;
-        color: #000000 !important;
-        -webkit-text-fill-color: initial !important;
-        margin-bottom: 0.1rem !important;
+        font-size: 20pt;
       }
-      .tagline {
-        font-size: 9pt !important;
-        color: #333333 !important;
-        margin-bottom: 0.2rem !important;
+      .title {
+        font-size: 12pt;
       }
-      .contact-list {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0.2rem !important;
-        border-top: none !important;
-        padding-top: 0 !important;
+      .section-title {
+        font-size: 11pt;
       }
-      .contact-item {
-        color: #000000 !important;
-        font-size: 7.8pt !important;
-      }
-      .contact-item svg {
-        display: none !important;
-      }
-      .section-title, .section-title-small {
-        font-size: 10pt !important;
-        color: #000000 !important;
-        border-bottom: 1px solid #000000 !important;
-        padding-bottom: 0.1rem !important;
-        margin-bottom: 0.3rem !important;
-        margin-top: 0.4rem !important;
-      }
-      .section-title::after {
-        display: none !important;
-      }
-      .skills-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 0.3rem !important;
-      }
-      .skill-pill {
-        display: inline-block !important;
-        background: #f1f5f9 !important;
-        border: 1px solid #cbd5e1 !important;
-        color: #334155 !important;
-        padding: 0.1rem 0.35rem !important;
-        border-radius: 6px !important;
-        font-size: 7.5pt !important;
-      }
-      .project-card {
-        border-left: none !important;
-        padding-left: 0 !important;
-        margin-bottom: 0.45rem !important;
-        page-break-inside: avoid !important;
-      }
-      .project-card::before {
-        display: none !important;
-      }
-      .project-title {
-        font-size: 9.5pt !important;
-        color: #000000 !important;
-      }
-      .project-badge {
-        border: 1px solid #94a3b8 !important;
-        background: #f8fafc !important;
-        color: #475569 !important;
-        font-size: 7pt !important;
-        padding: 0.05rem 0.3rem !important;
-      }
-      .project-description {
-        font-size: 8pt !important;
-        color: #334155 !important;
-        margin-bottom: 0.2rem !important;
-      }
-      .project-bullets li {
-        color: #334155 !important;
-        font-size: 8pt !important;
-        padding-left: 0.8rem !important;
-      }
-      .project-bullets li::before {
-        content: '• ' !important;
-      }
-      .languages-grid {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.5rem !important;
-      }
-      .education-item {
-        margin-bottom: 0.3rem !important;
-      }
-      .lang-bar {
-        display: none !important;
+      .profile-text, .bullet-list li, .item-bullets li, .edu-item {
+        font-size: 9.5pt;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Canvas de Fundo de Clima Dinâmico (Lago e Montanhas) -->
-  <canvas id="bgCanvas"></canvas>
-
+ 
   <!-- BOTÃO FLUTUANTE PARA IMPRESSÃO -->
   <div class="action-panel">
-    <button class="btn-premium" onclick="window.print()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+    <button class="btn-print" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
       Imprimir / PDF
     </button>
   </div>
-
-  <div class="container">
+ 
+  <div class="resume-container">
     
-    <!-- SIDEBAR ESQUERDA -->
-    <aside class="sidebar">
-      
-      <!-- PERFIL PRINCIPAL -->
-      <div class="profile-card">
-        <div class="avatar-wrapper">
-          <div class="avatar-glow"></div>
-          <img class="avatar" src="https://avatars.githubusercontent.com/u/202423426?v=4" alt="Guilherme Silvestre Barcelos">
-        </div>
-        <h1 class="name">Guilherme S. Barcelos</h1>
-        <div class="tagline">Engenharia de Software</div>
+    <!-- CABEÇALHO -->
+    <header class="header">
+      <h1 class="name">Guilherme Silvestre Barcelos</h1>
+      <div class="title">Estudante de Engenharia de Software</div>
+      <div class="contact-info">
+        <span>(61) 98596-3447</span>
+        <span><a href="mailto:guilhermebarcelos2006@gmail.com">guilhermebarcelos2006@gmail.com</a></span>
+        <span><a href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank">https://www.linkedin.com/in/guilherme-silvestre</a></span>
+        <span><a href="https://github.com/guilhermebarcelos06" target="_blank">https://github.com/guilhermebarcelos06</a></span>
+      </div>
+    </header>
+    
+    <!-- OBJETIVO & PERFIL -->
+    <section class="section">
+      <h2 class="section-title">Resumo de qualificações</h2>
+      <p class="profile-text">
+        Estudante de Engenharia de Software na Universidade Católica de Brasília (UCB), focado em aplicar boas práticas de desenvolvimento (Clean Code e SOLID) para a construção de interfaces modernas e APIs resilientes. Experiência prática autodidata e acadêmica no desenvolvimento de soluções completas utilizando ecossistemas modernos como React/TypeScript no frontend, e Java/Spring Boot integrados com Docker no backend. Busco ativamente oportunidades de Estágio ou vaga Júnior em Desenvolvimento de Software para contribuir com projetos reais e acelerar meu aprimoramento técnico.
+      </p>
+    </section>
+    
+    <!-- FUNDAMENTOS CORE -->
+    <section class="section">
+      <h2 class="section-title">Fundamentos computacionais core</h2>
+      <ul class="bullet-list">
+        <li><strong>Estruturas de Dados & Algoritmos:</strong> Domínio prático de alocação dinâmica de memória, manipulação direta de ponteiros e estruturas lineares/não-lineares de dados em C/C++ e Java.</li>
+        <li><strong>Análise de Complexidade (Big-O):</strong> Avaliação analítica de algoritmos visando otimização estrita de tempo de execução e uso eficiente de recursos de hardware.</li>
+        <li><strong>Arquitetura & Engenharia de Software:</strong> Aplicação rigorosa dos princípios SOLID, padrões de projeto (Design Patterns), código limpo (Clean Code) e injeção de dependências para construir código altamente modular e testável.</li>
+        <li><strong>Bancos de Dados Relacionais (SQL):</strong> Modelagem de esquemas estruturados, mapeamento objeto-relacional (ORM), indexação de consultas para alto desempenho e mitigação robusta de falhas de segurança.</li>
+      </ul>
+    </section>
+ 
+    <!-- PROJETOS DE DESTAQUE -->
+    <section class="section">
+      <h2 class="section-title">Projetos em destaque</h2>
+      <div class="item-group">
         
-        <ul class="contact-list">
-          <li>
-            <a class="contact-item" href="tel:+5561985963447">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-              (61) 98596-3447
-            </a>
-          </li>
-          <li>
-            <a class="contact-item" href="mailto:guilhermebarcelos2006@gmail.com">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-              guilhermebarcelos2006@gmail.com
-            </a>
-          </li>
-          <li>
-            <a class="contact-item" href="https://www.linkedin.com/in/guilherme-silvestre-barcelos-246586354/" target="_blank">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-              in/guilherme-silvestre
-            </a>
-          </li>
-          <li>
-            <a class="contact-item" href="https://github.com/guilhermebarcelos06" target="_blank">
-              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-              github/guilhermebarcelos06
-            </a>
-          </li>
-          <li class="contact-item">
-            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            Brasília - DF, Brasil
-          </li>
-        </ul>
+        <!-- PROJETO 1 -->
+        <div>
+          <div class="item-header">
+            <h3 class="item-title">J.A.R.V.I.S — Assistente Virtual Interativo</h3>
+            <div class="item-date">TypeScript + AI (2025 - 2026)</div>
+          </div>
+          <ul class="item-bullets">
+            <li>Desenvolveu uma SPA de alta performance utilizando <strong>React, TypeScript e Tailwind CSS</strong> com padronizações de qualidade via <strong>ESLint</strong>.</li>
+            <li>Implementou um motor de processamento vocal hands-free via <strong>Web Speech API (Reconhecimento/Síntese)</strong>, obtendo <strong>98% de precisão</strong> na execução de comandos contextuais (ex: reprodução no YouTube Player API e respostas de chat).</li>
+            <li>Eliminou bugs silenciosos em tempo de desenvolvimento configurando <strong>tipagem estrita com TypeScript</strong>, minimizando erros de runtime em <strong>95%</strong>.</li>
+          </ul>
+        </div>
+        
+        <!-- PROJETO 2 -->
+        <div>
+          <div class="item-header">
+            <h3 class="item-title">java-course-platform — API de Controle Acadêmico</h3>
+            <div class="item-date">Java + DevOps (2025)</div>
+          </div>
+          <ul class="item-bullets">
+            <li>Modelou e codificou APIs RESTful escaláveis em <strong>Java com Spring Boot (Spring Data JPA, Hibernate)</strong> seguindo os padrões de arquitetura em camadas e injeção de dependência estável.</li>
+            <li>Estruturou e otimizou o setup local de desenvolvimento, reduzindo o tempo de preparação em <strong>90% (de 1 hora para menos de 5 minutos)</strong> através do provisionamento total automatizado com <strong>Docker e Docker Compose</strong>.</li>
+            <li>Fez a integração com o banco de dados relacional <strong>PostgreSQL</strong>, configurando indexes de alta performance e garantindo proteção rigorosa contra injeções.</li>
+          </ul>
+        </div>
+        
+        <!-- PROJETO 3 -->
+        <div>
+          <div class="item-header">
+            <h3 class="item-title">DEVBank — Simulador Financeiro</h3>
+            <div class="item-date">C++ + Algoritmos (2025)</div>
+          </div>
+          <ul class="item-bullets">
+            <li>Construiu a arquitetura do simulador financeiro em <strong>C++</strong> aplicando os pilares da programação orientada a objetos (POO) e controle rigoroso de fluxo.</li>
+            <li>Otimizou a latência e o consumo de memória local na busca e ordenação de contas bancárias por meio da manipulação direta de ponteiros e <strong>alocação de memória dinâmica</strong>.</li>
+            <li>Implementou rotinas eficientes de leitura e escrita em arquivos locais para a persistência duradoura de registros.</li>
+          </ul>
+        </div>
+        
       </div>
-
-      <!-- FORMAÇÃO ACADÊMICA -->
-      <div class="skills-card">
-        <h2 class="section-title-small">
-          🎓 Formação
-        </h2>
-        <div class="education-item">
-          <div class="education-school">Engenharia de Software</div>
-          <div class="education-degree">Bacharelado (3º Período)</div>
-          <div class="education-degree">Universidade Católica de Brasília (UCB)</div>
-          <div class="education-year">Conclusão: 2029</div>
-        </div>
-      </div>
-
-      <!-- CURSOS E CERTIFICAÇÕES -->
-      <div class="skills-card">
-        <h2 class="section-title-small">
-          📜 Certificações
-        </h2>
-        <div class="education-item" style="margin-bottom: 0.6rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">IA Generativa (Acadêmico)</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">UCB • 30h • 2026</div>
-        </div>
-        <div class="education-item" style="margin-bottom: 0.6rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">UI Design (Interface)</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">UCB • 30h • 2026</div>
-        </div>
-        <div class="education-item" style="margin-bottom: 0.6rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">IA Gen., LLMs & Agentes</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">DIO / Bradesco • 4h • 2026</div>
-        </div>
-        <div class="education-item" style="margin-bottom: 0.6rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">Figma Prototipagem</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">UCB • 30h • 2025</div>
-        </div>
-        <div class="education-item" style="margin-bottom: 0.6rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">Git & GitHub Colaborativo</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">UCB • 30h • 2025</div>
-        </div>
-        <div class="education-item" style="margin-bottom: 0rem;">
-          <div class="education-school" style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); line-height: 1.25;">Testes Autom. com Java</div>
-          <div class="education-degree" style="font-size: 0.78rem; color: var(--text-muted);">DIO / Bradesco • 8h • 2025</div>
+    </section>
+ 
+    <!-- FORMAÇÃO -->
+    <section class="section">
+      <h2 class="section-title">Educação</h2>
+      <div class="edu-block">
+        <div class="edu-item">
+          <div class="edu-title">Graduação em Engenharia de Software (Bacharelado)</div>
+          <div class="edu-details">Universidade Católica de Brasília (UCB) — 3º Período (Previsão de Conclusão: 2029)</div>
         </div>
       </div>
-
-      <!-- COMPETÊNCIAS / TECNOLOGIAS -->
-      <div class="skills-card">
-        <h2 class="section-title-small">
-          🛠️ Tecnologias
-        </h2>
-        <div class="skills-grid">
-          <span class="skill-pill">Java</span>
-          <span class="skill-pill">C/C++</span>
-          <span class="skill-pill">TypeScript</span>
-          <span class="skill-pill">React</span>
-          <span class="skill-pill">Spring Boot</span>
-          <span class="skill-pill">PostgreSQL</span>
-          <span class="skill-pill">Docker</span>
-          <span class="skill-pill">Docker Compose</span>
-          <span class="skill-pill">APIs RESTful</span>
-          <span class="skill-pill">JavaScript</span>
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">Git & GitHub</span>
-          <span class="skill-pill">Estruturas de Dados</span>
-          <span class="skill-pill">POO (Programação Orientada a Objetos)</span>
-          <span class="skill-pill">Lógica de Programação</span>
-          <span class="skill-pill">Metodologias Ágeis (Scrum)</span>
-          <span class="skill-pill">Tailwind CSS</span>
-          <span class="skill-pill">Vite</span>
+    </section>
+ 
+    <!-- CERTIFICAÇÕES -->
+    <section class="section">
+      <h2 class="section-title">Certificações recentes</h2>
+      <div class="edu-block">
+        <div class="edu-item">
+          <div class="edu-title">IA Generativa (Acadêmico)</div>
+          <div class="edu-details">Universidade Católica de Brasília (UCB) — 30h — 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">UI Design (Design de Interface)</div>
+          <div class="edu-details">Universidade Católica de Brasília (UCB) — 30h — 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">IA Gen., LLMs & Agentes</div>
+          <div class="edu-details">DIO / Bradesco — 4h — 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">Figma Prototipagem Acadêmica</div>
+          <div class="edu-details">Universidade Católica de Brasília (UCB) — 30h — 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">Git & GitHub Colaborativo</div>
+          <div class="edu-details">Universidade Católica de Brasília (UCB) — 30h — 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-title">Testes Automatizados com Java</div>
+          <div class="edu-details">DIO / Bradesco — 8h — 2025</div>
         </div>
       </div>
-
-    </aside>
-    
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="main-content">
-      
-      <!-- PERFIL PROFISSIONAL -->
-      <section class="content-section">
-        <h2 class="section-title">🎯 Objetivo & Perfil</h2>
-        <p class="about-text">
-          Estudante de Engenharia de Software na Universidade Católica de Brasília (UCB), focado em aplicar boas práticas de desenvolvimento (Clean Code e SOLID) para a construção de interfaces modernas e APIs resilientes. Experiência prática autodidata e acadêmica no desenvolvimento de soluções completas utilizando ecossistemas modernos como React/TypeScript no frontend, e Java/Spring Boot integrados com Docker no backend. Busco ativamente oportunidades de <strong>Estágio ou vaga Júnior em Desenvolvimento de Software</strong> para contribuir com projetos reais e acelerar meu aprimoramento técnico.
-        </p>
-      </section>
-
-      <!-- FUNDAMENTOS CORE -->
-      <section class="content-section">
-        <h2 class="section-title">💻 Fundamentos Computacionais Core</h2>
-        <ul class="project-bullets" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem;">
-          <li style="position: relative; padding-left: 1.2rem; font-size: 0.92rem; color: var(--text-muted); list-style-type: none;">
-            <span style="position: absolute; left: 0; top: 1px; font-size: 0.8rem; opacity: 0.8;">⚡</span>
-            <strong>Estruturas de Dados & Algoritmos:</strong> Domínio prático de alocação dinâmica de memória, manipulação direta de ponteiros e estruturas lineares/não-lineares de dados em C/C++ e Java.
-          </li>
-          <li style="position: relative; padding-left: 1.2rem; font-size: 0.92rem; color: var(--text-muted); list-style-type: none;">
-            <span style="position: absolute; left: 0; top: 1px; font-size: 0.8rem; opacity: 0.8;">⚡</span>
-            <strong>Análise de Complexidade (Big-O):</strong> Avaliação analítica de algoritmos visando otimização estrita de tempo de execução e uso eficiente de recursos de hardware.
-          </li>
-          <li style="position: relative; padding-left: 1.2rem; font-size: 0.92rem; color: var(--text-muted); list-style-type: none;">
-            <span style="position: absolute; left: 0; top: 1px; font-size: 0.8rem; opacity: 0.8;">⚡</span>
-            <strong>Arquitetura & Engenharia de Software:</strong> Aplicação rigorosa dos princípios SOLID, padrões de projeto (Design Patterns), código limpo (Clean Code) e injeção de dependências para construir código altamente modular e testável.
-          </li>
-          <li style="position: relative; padding-left: 1.2rem; font-size: 0.92rem; color: var(--text-muted); list-style-type: none;">
-            <span style="position: absolute; left: 0; top: 1px; font-size: 0.8rem; opacity: 0.8;">⚡</span>
-            <strong>Bancos de Dados Relacionais (SQL):</strong> Modelagem de esquemas estruturados, mapeamento objeto-relacional (ORM), indexação de consultas para alto desempenho e mitigação robusta de falhas de segurança.
-          </li>
-        </ul>
-      </section>
-
-
-      <!-- PROJETOS DE DESTAQUE -->
-      <section class="content-section">
-        <h2 class="section-title">🚀 Projetos de Destaque</h2>
-        <div class="projects-timeline">
-          
-          <!-- PROJETO 1 -->
-          <div class="project-card">
-            <div class="project-header">
-              <h3 class="project-title">
-                J.A.R.V.I.S — Assistente Virtual Interativo
-                <a class="project-link" href="https://github.com/guilhermebarcelos06/J.A.R.V.I.S" target="_blank" title="Ver repositório no GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </h3>
-              <span class="project-badge">TypeScript + AI</span>
-            </div>
-            <div class="project-description">Assistente inteligente integrado com IA, chat contínuo, geração de imagens e controle multimídia.</div>
-            <ul class="project-bullets">
-              <li>Desenvolveu uma SPA de alta performance utilizando <strong>React, TypeScript e Tailwind CSS</strong> com padronizações de qualidade via <strong>ESLint</strong>.</li>
-              <li>Implementou um motor de processamento vocal hands-free via <strong>Web Speech API (Reconhecimento/Síntese)</strong>, obtendo <strong>98% de precisão</strong> na execução de comandos contextuais (ex: reprodução no YouTube Player API e respostas de chat).</li>
-              <li>Eliminou bugs silenciosos em tempo de desenvolvimento configurando <strong>tipagem estrita com TypeScript</strong>, minimizando erros de runtime em <strong>95%</strong>.</li>
-            </ul>
-          </div>
-
-          <!-- PROJETO 2 -->
-          <div class="project-card">
-            <div class="project-header">
-              <h3 class="project-title">
-                java-course-platform — API de Controle Acadêmico
-                <a class="project-link" href="https://github.com/Java-Course-Platform-Team/java-course-platform" target="_blank" title="Ver repositório no GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </h3>
-              <span class="project-badge">Java + DevOps</span>
-            </div>
-            <div class="project-description">Backend robusto para gerenciamento e matrículas em plataformas de cursos online.</div>
-            <ul class="project-bullets">
-              <li>Modelou e codificou APIs RESTful escaláveis em <strong>Java com Spring Boot (Spring Data JPA, Hibernate)</strong> seguindo os padrões de arquitetura em camadas e injeção de dependência estável.</li>
-              <li>Estruturou e otimizou o setup local de desenvolvimento, reduzindo o tempo de preparação em <strong>90% (de 1 hora para menos de 5 minutos)</strong> através do provisionamento total automatizado com <strong>Docker e Docker Compose</strong>.</li>
-              <li>Fez a integração com o banco de dados relacional <strong>PostgreSQL</strong>, configurando indexes de alta performance e garantindo proteção rigorosa contra injeções.</li>
-            </ul>
-          </div>
-
-          <!-- PROJETO 3 -->
-          <div class="project-card">
-            <div class="project-header">
-              <h3 class="project-title">
-                DEVBank — Simulador Financeiro
-                <a class="project-link" href="https://github.com/guilhermebarcelos06/DEVBank" target="_blank" title="Ver repositório no GitHub">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </a>
-              </h3>
-              <span class="project-badge">C++ + Algoritmos</span>
-            </div>
-            <div class="project-description">Terminal bancário offline interativo com manipulação persistente local.</div>
-            <ul class="project-bullets">
-              <li>Construiu a arquitetura do simulador financeiro em <strong>C++</strong> aplicando os pilares da programação orientada a objetos (POO) e controle rigoroso de fluxo.</li>
-              <li>Otimizou a latência e o consumo de memória local na busca e ordenação de contas bancárias por meio da manipulação direta de ponteiros e <strong>alocação de memória dinâmica</strong>.</li>
-              <li>Implementou rotinas eficientes de leitura e escrita em arquivos locais para a persistência duradoura de registros.</li>
-            </ul>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- IDIOMAS -->
-      <section class="content-section">
-        <h2 class="section-title">🗣️ Idiomas & Fluência</h2>
-        <div class="languages-grid">
-          <div class="lang-item">
-            <div class="lang-name">Inglês</div>
-            <div class="lang-level">Avançado / Técnico</div>
-            <div class="lang-bar">
-              <div class="lang-bar-fill" style="width: 85%;"></div>
-            </div>
-          </div>
-          <div class="lang-item">
-            <div class="lang-name">Alemão</div>
-            <div class="lang-level">Básico</div>
-            <div class="lang-bar">
-              <div class="lang-bar-fill" style="width: 25%;"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
+    </section>
+ 
+    <!-- HABILIDADES -->
+    <section class="section">
+      <h2 class="section-title">Habilidades</h2>
+      <ul class="bullet-list">
+        <li><strong>Linguagens de Programação:</strong> Java, C/C++, TypeScript, JavaScript, Python, SQL</li>
+        <li><strong>Frameworks & Tecnologias:</strong> Spring Boot, React, Node.js, Docker, Docker Compose, PostgreSQL, Tailwind CSS, Git, GitHub, Vite</li>
+        <li><strong>Conceitos & Práticas:</strong> SOLID, Clean Code, Design Patterns, Estruturas de Dados, Orientação a Objetos (POO), Lógica de Programação, Metodologias Ágeis (Scrum)</li>
+      </ul>
+    </section>
+ 
+    <!-- IDIOMAS -->
+    <section class="section">
+      <h2 class="section-title">Idiomas</h2>
+      <ul class="bullet-list">
+        <li><strong>Inglês:</strong> Avançado / Técnico</li>
+        <li><strong>Alemão:</strong> Básico</li>
+      </ul>
+    </section>
+ 
   </div>
-
-  <!-- Importação do Canvas de Clima Dinâmico e Tema Standalone -->
-  <script src="js/background.js"></script>
+ 
   <script>
-    // Standalone initial theme loader e sincronização automática
-    function initStandaloneTheme() {
-      const html = document.documentElement;
-      const body = document.body;
-      
-      let savedTheme = localStorage.getItem('theme');
-      if (!savedTheme) {
-        const currentHour = new Date().getHours();
-        savedTheme = (currentHour >= 6 && currentHour < 18) ? 'light' : 'dark';
-      }
-      
-      const isLight = savedTheme === 'light';
-      if (isLight) {
-        body.classList.add('light-theme');
-        html.classList.add('light-theme');
-        html.classList.remove('dark');
-      } else {
-        body.classList.remove('light-theme');
-        html.classList.remove('light-theme');
-        html.classList.add('dark');
-      }
-      
-      // Notifica o Canvas sobre a mudança
-      setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isLight } }));
-      }, 100);
-    }
-    
-    initStandaloneTheme();
-
     // Trigger automático de impressão/PDF quando acessado via ?print=true
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('print')) {
-        // Pequeno atraso para garantir que fontes e renderização estejam completas
         setTimeout(() => {
           window.print();
         }, 600);
